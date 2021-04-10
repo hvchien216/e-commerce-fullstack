@@ -1,0 +1,35 @@
+const errorMiddleware = require("../middlewares/error");
+const uploadMiddleware = require('../middlewares/multerConfig');
+const auth = require("../routes/api/auth");
+const product = require("../routes/api/product");
+const category = require("../routes/api/category");
+const variant = require("../routes/api/variant");
+const brand = require("../routes/api/brand");
+const uploadRoutes = require("../routes/api/upload");
+// const category = require("../routes/api/category");
+// const customer = require("../routes/api/customer");
+// const privateCategory = require("../routes/private/category");
+// const privateProduct = require("../routes/private/product");
+// const product = require("../routes/api/product");
+// const shoppingCart = require("../routes/api/shoppingCart");
+const payment = require('../routes/api/payment');
+// const order = require("../routes/api/order");
+
+module.exports = app => {
+  app.use("/api/auth", auth);
+  app.use("/api/product", product);
+  app.use("/api/category", category);
+  app.use("/api/variant", variant);
+  app.use("/api/brand", brand);
+  app.use("/api/payment", payment);
+  app.use("/api/upload", uploadRoutes);
+  // app.use("/api/category", category);
+  // app.use("/admin/category", privateCategory);
+  // app.use("/api/customer", customer);
+  // app.use("/admin/product", privateProduct);
+  // app.use("/api/product", product);
+  // app.use("/api/shopping-cart", shoppingCart);
+  // app.use("/api/payment", payment);
+  // app.use("/api/order", order);
+  // app.use(errorMiddleware);
+};
