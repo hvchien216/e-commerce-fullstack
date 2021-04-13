@@ -92,8 +92,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const ProductItem: FC<Props> = (props) => {
   const classes = useStyles(props);
-  const { color, name, code, url, price, discount_rate, id, slug } = props;
-  let displayName = code ? `[${code}] ${name}` : `${name}`;
+  const { color, name, url, price, discount_rate, id, slug } = props;
+  let displayName = props?.code ? `[${props?.code}] ${name}` : `${name}`;
   let priceAfterDiscount = formarDiscountPrice(price, discount_rate);
   return (
     <Box className={classes.root} data-aos="flip-right">

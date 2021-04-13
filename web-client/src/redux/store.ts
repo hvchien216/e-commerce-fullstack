@@ -67,4 +67,4 @@ function configureStore({ isServer }: any) {
 
 export const store = configureStore(false);
 
-export const wrapper = createWrapper(configureStore as any, { debug: true });
+export const wrapper = createWrapper(configureStore as any);
