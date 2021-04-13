@@ -11,9 +11,12 @@
     "@hookform/resolvers": "^2.0.0",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@paypal/react-paypal-js": "^5.2.0",
     "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.13.2",
+    "@sweetalert/with-react": "^0.1.1",
+    "aos": "^2.3.4",
     "axios": "^0.21.1",
     "immer": "^9.0.1",
     "material-auto-rotating-carousel": "^3.0.2",
@@ -25,6 +28,7 @@
     "react-credit-cards": "^0.8.3",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.0.4",
+    "react-infinite-scroll-component": "^6.0.0",
     "react-redux": "^7.2.3",
     "react-slick": "^0.28.1",
     "react-swipeable-views": "^0.13.9",
@@ -32,6 +36,7 @@
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",
     "slick-carousel": "^1.8.1",
+    "sweetalert": "^2.1.2",
     "yup": "^0.32.9"
   },
   "devDependencies": {

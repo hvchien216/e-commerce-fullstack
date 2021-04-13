@@ -1,4 +1,9 @@
-import { clearToken, storedInfoUser, clearInfoUser } from "@utils/index";
+import {
+  clearToken,
+  storedInfoUser,
+  clearInfoUser,
+  clearLocalStored,
+} from "@utils/index";
 import produce from "immer";
 import { AnyAction } from "redux";
 import { GET_PROFILE_SUCCESS, LOGIN, LOG_OUT } from "./types";
@@ -23,10 +28,12 @@ const authUserReducer = (state = initialState, action: AnyAction) => {
         return;
 
       case LOG_OUT:
+        console.log("ruunnnnnn");
         draft.user = null;
         draft.isAuthenticated = false;
         clearToken();
         clearInfoUser();
+        clearLocalStored();
         return;
     }
   });

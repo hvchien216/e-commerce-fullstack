@@ -60,8 +60,8 @@ module.exports = {
 
     order.save(function (err, results) {
       if (err) {
-        return res.send({
-          messages: err
+        return res.status(500).send({
+          error_code: 'cant_create_order'
         });
       }
       async.eachSeries(data.detailsArr, (item, done) => {
@@ -74,14 +74,12 @@ module.exports = {
 
               resolve({
                 vIndex: _.findIndex(prd.variants, ['variant.name', item.variant]),
-                //  cIndex : _.findIndex(prd.colors, ['code', item.colors])
               });
             }
           })
         }).then((path) => {
           let vpath = `variants.${path.vIndex}.inStock`;
           let spath = `variants.${path.vIndex}.saled`;
-          // let spath = `size.${path.sIndex}.quantity`;
 
           Product.findOneAndUpdate(
             { _id: item.product_id, 'variants.variant.name': item.variant },
@@ -112,7 +110,6 @@ module.exports = {
         // req.session.cart = undefined;
         return res.json({
           success: true,
-          messages: 'sucessfull!',
           details: data.detailsArr,
           total: data.billTotal,
           user: req.user
@@ -156,13 +153,12 @@ module.exports = {
         payment_method: token_payment,
         confirm: true,
       });
-      console.log("stripe-routes.js 19 | payment", payment);
+      // console.log("stripe-routes.js 19 | payment", payment);
 
     } catch (error) {
-      console.log("stripe-routes.js 17 | error", error);
-      res.json({
-        message: "Payment Failed",
-        success: false,
+      // console.log("stripe-routes.js 17 | error", error);
+      return res.status(500).send({
+        error_code: 'cant_create_order'
       });
     }
     // email
@@ -183,8 +179,8 @@ module.exports = {
 
     order.save(function (err, results) {
       if (err) {
-        return res.send({
-          messages: err
+        return res.status(500).send({
+          error_code: 'cant_create_order'
         });
       }
       async.eachSeries(data.detailsArr, (item, done) => {
@@ -197,14 +193,12 @@ module.exports = {
 
               resolve({
                 vIndex: _.findIndex(prd.variants, ['variant.name', item.variant]),
-                //  cIndex : _.findIndex(prd.colors, ['code', item.colors])
               });
             }
           })
         }).then((path) => {
           let vpath = `variants.${path.vIndex}.inStock`;
           let spath = `variants.${path.vIndex}.saled`;
-          // let spath = `size.${path.sIndex}.quantity`;
 
           Product.findOneAndUpdate(
             { _id: item.product_id, 'variants.variant.name': item.variant },
@@ -235,7 +229,6 @@ module.exports = {
         // req.session.cart = undefined;
         return res.json({
           success: true,
-          messages: 'sucessfull!',
           details: data.detailsArr,
           total: data.billTotal,
           user: req.user

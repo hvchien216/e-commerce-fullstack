@@ -14,7 +14,7 @@ export interface IOptionRadioButton {
   label: string;
 }
 
-const CheckBoxGroupField: FC<any> = (props: any) => {
+const RadioBoxGroupField: FC<any> = (props: any) => {
   const {
     label,
     type = "text",
@@ -57,4 +57,4 @@ const CheckBoxGroupField: FC<any> = (props: any) => {
   );
 };
 
-export default CheckBoxGroupField;
+export default RadioBoxGroupField;

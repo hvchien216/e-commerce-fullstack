@@ -29,10 +29,8 @@ import { getProfileFail, getProfileSuccess } from "./actions";
 //   typeof apiProduct.getNewProductList
 // >;
 export function* getProfileSaga(action: any): any {
-  console.log("reuuuunnnnnn");
   try {
     const profile: any = yield call(apiAuth.getProfile);
-    console.log("profile===>", profile);
     if (profile) {
       yield put(getProfileSuccess(profile));
       if (action?.isTriggerFunc) {

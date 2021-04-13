@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
-const MyButton: FC<Props & Omit<MuiButtonProps, keyof Props>> = (props) => {
+const MyButton: FC<any> = (props) => {
   const { color, ...other } = props;
   const classes = useStyles(props);
   return <Button className={classes.root} {...other} />;

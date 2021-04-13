@@ -1,54 +1,36 @@
+import MyButton from "@components/Button";
+import FormCheckOutCreditCard from "@components/FormCheckOutCreditCard";
+import InputField from "@components/InputField";
+import Layout from "@components/Layout";
+import Link from "@components/Link";
+import RadioBoxGroupField, {
+  IOptionRadioButton,
+} from "@components/RadioBoxGroupField";
+import { showError } from "@config/ServiceErrors";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
-  Button,
   CircularProgress,
   Divider,
   Grid,
   makeStyles,
   Paper,
-  Switch,
   Typography,
 } from "@material-ui/core";
-import { AppState, wrapper } from "@redux/store";
-import Head from "next/head";
-import { useDispatch, useSelector } from "react-redux";
-import styles from "../styles/Home.module.css";
-import { Fragment, ReactNode, useEffect, useState } from "react";
-import Layout from "@components/Layout";
-import { useDarkModeStore } from "@context/darkMode";
 import { Theme } from "@material-ui/core/styles";
-import { fetchNewProductList } from "@redux/product/actions";
-import { END } from "@redux-saga/core";
-import { SagaStore } from "@redux/store";
-import ProductItem from "@components/ProductItem";
-import { ObjectImageProduct, Product } from "@redux/product/types";
-import apiProduct from "@redux/product/api";
-import { ILogin } from "@redux/authUser/types";
-import { SubmitHandler, useForm, useWatch } from "react-hook-form";
-import InputField from "@components/InputField";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import authApi from "@redux/authUser/api";
-import { getProfile } from "@redux/authUser/actions";
-import { formatCurrency, storedToken } from "@utils/index";
-import { useRouter } from "next/router";
-import Link from "@components/Link";
-import CheckBoxGroupField, {
-  IOptionRadioButton,
-} from "@components/CheckBoxGroupField";
-import { CartItem } from "@redux/cart/types";
-import MyButton from "@components/Button";
-import FormCheckOutCreditCard from "@components/FormCheckOutCreditCard";
 import NavigateBeforeRoundedIcon from "@material-ui/icons/NavigateBeforeRounded";
 import orderApi from "@redux/authUser/api";
 import { removeAllItemCart } from "@redux/cart/actions";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import { CartItem } from "@redux/cart/types";
+import { AppState } from "@redux/store";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { alertNotification, formatCurrency } from "@utils/index";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { SubmitHandler, useForm, useWatch } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import * as yup from "yup";
 const PAYMENT_METHOD_OPTIONS: IOptionRadioButton[] = [
   {
     value: "COD",
@@ -150,14 +132,13 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
       paymentMethod: "",
       note: "",
     },
-    // resolver: yupResolver(schemaCheckout),
+    resolver: yupResolver(schemaCheckout),
   });
   const paymentMethodWatchValue = useWatch({
     control,
-    name: "paymentMethod", // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
-    defaultValue: "", // default value before the render
+    name: "paymentMethod",
+    defaultValue: "",
   });
-  console.log(rest);
   const handleGetProfileSuccess = () => {
     router.replace("/");
   };
@@ -179,19 +160,15 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
         if (data.success === true) {
           await dispatch(removeAllItemCart());
           router.push("/");
+          alertNotification("Đặt hàng thành công");
         }
         return;
       } catch (error) {
-        console.log(error);
+        // showError(error);
       }
     } else {
       setOpen(true);
     }
-    // return new Promise((aa, bb) => {
-    //   setTimeout(() => {
-    //     aa(alert(JSON.stringify(data)));
-    //   }, 3000);
-    // });
   };
 
   return (
@@ -203,7 +180,6 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
               <Typography
                 variant="h4"
                 color="primary"
-                // align="center"
                 className={classes.title}
               >
                 Thông tin mua hàng
@@ -245,17 +221,6 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
                   label="Ghi chú"
                 />
               </Paper>
-              {/* <Grid item xs={12} md={6} className={classes.submitBox}>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  variant="contained"
-                  color="primary"
-                >
-                  {isSubmitting ? <CircularProgress size={23} /> : "Signin"}
-                </Button>
-                <Link href="/register">Signup</Link>
-              </Grid> */}
             </Grid>
             <Grid item sm={12} md={4}>
               <Typography
@@ -267,7 +232,7 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
                 Thanh toán
               </Typography>
               <Paper style={{ padding: "8px" }}>
-                <CheckBoxGroupField
+                <RadioBoxGroupField
                   control={control}
                   name="paymentMethod"
                   errors={errors}
@@ -281,7 +246,6 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
               <Typography
                 variant="h4"
                 color="primary"
-                // align="center"
                 className={classes.title}
               >
                 {`Đơn hàng (${totalQuantityProduct} sản phẩm)`}
@@ -436,24 +400,5 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
     </>
   );
 };
-
-// export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
-//   // if (store.getState().products.newProductList.length) {
-//   // const data: any = await apiProduct.getBestSellerProductList();
-//   // await store.dispatch(fetchNewProductList());
-//   // store.dispatch(END);
-//   // }
-//   // await (store as SagaStore).sagaTask.toPromise();
-//   // const fetchParallel: any = await Promise.all([
-//   //   apiProduct.getNewProductList(),
-//   //   apiProduct.getBestSellerProductList(),
-//   // ]);
-//   // return {
-//   //   props: {
-//   //     bestSellerList: fetchParallel[0].products,
-//   //     newProductList: fetchParallel[1].products,
-//   //   },
-//   // };
-// });
 
 export default Checkout;

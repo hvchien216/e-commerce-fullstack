@@ -1,39 +1,29 @@
-import React, { FC, useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  TextField,
-} from "@material-ui/core";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import MyButton from "@components/Button";
+import InputField from "@components/InputField";
+import StripeInput from "@components/StripeInput";
+import { showError } from "@config/ServiceErrors";
+import { CircularProgress, Grid } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import orderApi from "@redux/authUser/api";
+import { removeAllItemCart } from "@redux/cart/actions";
 import {
   CardCvcElement,
-  CardElement,
   CardExpiryElement,
   CardNumberElement,
-  Elements,
   useElements,
   useStripe,
-  AuBankAccountElement,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import InputField from "@components/InputField";
-import StripeInput from "@components/StripeInput";
-import orderApi from "@redux/authUser/api";
-import MyButton from "@components/Button";
-import { removeAllItemCart } from "@redux/cart/actions";
-import { useDispatch } from "react-redux";
+import { alertNotification } from "@utils/index";
 import { useRouter } from "next/router";
-import CreditCard from "react-credit-cards";
+import React, { FC, useEffect, useState } from "react";
 import "react-credit-cards/es/styles-compiled.css";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import * as yup from "yup";
 
 interface IFormTypeCreditCard {
   name: string;
@@ -53,12 +43,6 @@ const cardsLogo = [
   "visaelectron",
 ];
 
-const schemaCreditCard = yup.object().shape({
-  name: yup.string().required("Vui lòng nhập tên"),
-  // cvc: yup.number().required("Vui lòng nhập CVC"),
-  // ccexp: yup.date().required("Vui lòng nhập ngày hết hạn"),
-  ccnumber: yup.number().required("Vui lòng nhập số tài khoản"),
-});
 const FormCheckOutCreditCard: FC<any> = (props: any) => {
   const { onClose, open, values, cart } = props;
   const [stripePromise, setStripePromise] = useState<any>(null);
@@ -71,10 +55,9 @@ const FormCheckOutCreditCard: FC<any> = (props: any) => {
     register,
     reset,
     control,
-    formState: { isSubmitting, errors, touchedFields, isValid },
+    formState: { isSubmitting, errors, touchedFields },
     setValue,
     getValues,
-    ...rest
   } = useForm<IFormTypeCreditCard>({
     defaultValues: {
       name: "",
@@ -82,7 +65,6 @@ const FormCheckOutCreditCard: FC<any> = (props: any) => {
       ccexp: "",
       ccnumber: "",
     },
-    // resolver: yupResolver(schemaCreditCard),
   });
 
   const onSubmit: SubmitHandler<IFormTypeCreditCard> = async (data) => {
@@ -109,17 +91,30 @@ const FormCheckOutCreditCard: FC<any> = (props: any) => {
           body["token_payment"] = id;
           const response: any = await orderApi.paymentByCreditCard(body);
           if (response.success) {
-            console.log("CheckoutForm.js 25 | payment successful!", props);
-
             await dispatch(removeAllItemCart());
             props.onClose();
             router.push("/");
+            alertNotification("Đặt hàng thành công");
           }
         } catch (error) {
-          console.log("CheckoutForm.js 28 | ", error);
+          showError(error);
         }
       } else {
-        console.log(error.message);
+        if (error.code === "incomplete_number") {
+          showError("Vui lòng nhập số tài khoản");
+        }
+        if (error.code === "incomplete_expiry") {
+          showError("Vui lòng nhập ngày hết hạn");
+        }
+        if (error.code === "incomplete_cvc") {
+          showError("Vui lòng nhập số CVC");
+        }
+        if (error.code === "invalid_number") {
+          showError("Số tài khoản không hợp lệ");
+        }
+        if (error.code === "invalid_expiry_year_past") {
+          showError("Thẻ của bạn đã hết hạn sử dụng");
+        }
       }
     };
     await capture();

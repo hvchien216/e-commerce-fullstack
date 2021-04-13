@@ -5,6 +5,7 @@ export interface ObjectImageProduct {
 
 export interface Variant {
   variant: {
+    _id: string;
     name: string;
   };
   unit_price: number;
@@ -18,6 +19,10 @@ export interface Brand {
   name: string;
 }
 
+export interface Category {
+  _id: string;
+}
+
 export interface Product {
   _id: string;
   name: string;
@@ -28,6 +33,36 @@ export interface Product {
   brand_id: Brand;
   category_id: string;
   variants: Variant[];
+}
+
+export enum ORDER_STATUSES {
+  "WAITING" = "WAITING",
+  "COMFIRMED" = "COMFIRMED",
+  "SHIPPING" = "SHIPPING",
+  "SUCCESS" = "SUCCESS",
+  "RETURNS" = "RETURNS",
+}
+
+export interface Order {
+  _id: string;
+  status: ORDER_STATUSES;
+  user: string;
+  receiver_name: string;
+  note: string | undefined;
+  address: string;
+  phone: string;
+  paymentMethod: string;
+  totalAmount: number;
+  detais: {
+    _id: string;
+    product_id: Product;
+    price: number;
+    quantity: number;
+    variant: string;
+    total: number;
+  }[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const FETCH_PRODUCT = "FETCH_PRODUCT";

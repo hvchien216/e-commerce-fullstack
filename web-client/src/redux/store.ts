@@ -48,7 +48,7 @@ function configureStore({ isServer }: any) {
 
     const persistConfig = {
       key: "nextjs",
-      whitelist: ["cart,authUser"], // only counter will be persisted, add other reducers if needed
+      whitelist: ["cart", "authUser"], // only counter will be persisted, add other reducers if needed
       storage, // if needed, use a safer storage
     };
 
@@ -64,5 +64,7 @@ function configureStore({ isServer }: any) {
     return store;
   }
 }
+
+export const store = configureStore(false);
 
 export const wrapper = createWrapper(configureStore as any, { debug: true });

@@ -1,42 +1,46 @@
-import React, { FC, Fragment, ReactNode, useEffect, useState } from "react";
+import MyButton from "@components/Button";
+import CircleProgress from "@components/CircleProgress";
+import Link from "@components/Link";
+import { useDrawerCartStore } from "@context/drawerCart";
+import { Box, Divider, Drawer, Hidden } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
+import Badge from "@material-ui/core/Badge";
+import IconButton from "@material-ui/core/IconButton";
+import InputBase from "@material-ui/core/InputBase";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import {
+  createStyles,
   fade,
   makeStyles,
   Theme,
-  createStyles,
 } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
+import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
-import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
-import { Box, Divider, Drawer, Grid, Hidden } from "@material-ui/core";
-import { useDarkModeStore } from "@context/darkMode";
-import Brightness2Icon from "@material-ui/icons/Brightness2";
-import Brightness5Icon from "@material-ui/icons/Brightness5";
-import Button, { ButtonProps } from "@material-ui/core/Button";
-import Link from "@components/Link";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "@redux/store";
-import { toggleDarkMode } from "@redux/product/actions";
-import { LINEAR_BLUE } from "@utils/theme";
-import apiProduct from "@redux/product/api";
-import { Product } from "@redux/product/types";
-import { capitalizeFirstLetter, formatCurrency } from "@utils/index";
-import { CartItem } from "@redux/cart/types";
-import MyButton from "@components/Button";
-import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
-import { useDrawerCartStore } from "@context/drawerCart";
-import { removeItemFromCart } from "@redux/cart/actions";
-import { PayloadRemoveItemFromCart } from "@redux/cart/types";
 import { logout } from "@redux/authUser/actions";
+import { removeItemFromCart } from "@redux/cart/actions";
+import { CartItem, PayloadRemoveItemFromCart } from "@redux/cart/types";
+import { toggleDarkMode } from "@redux/product/actions";
+import apiProduct from "@redux/product/api";
+import { ObjectImageProduct, Product } from "@redux/product/types";
+import { AppState } from "@redux/store";
+import { capitalizeFirstLetter, formatCurrency } from "@utils/index";
+import { LINEAR_BLUE } from "@utils/theme";
+import debounce from "lodash/debounce";
+import React, {
+  ChangeEvent,
+  FC,
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,9 +57,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuListItemNav: {
       fontWeight: 500,
-    },
-    menuButton: {
-      // marginRight: theme.spacing(2),
     },
     title: {
       display: "none",
@@ -88,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
     },
     inputRoot: {
-      color: "inherit",
+      color: theme.palette.primary.main,
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
@@ -103,9 +104,6 @@ const useStyles = makeStyles((theme: Theme) =>
     sectionDesktop: {
       marginLeft: "auto",
       display: "flex",
-      // [theme.breakpoints.up("md")]: {
-      //   display: "flex",
-      // },
     },
     sectionMobile: {
       display: "flex",
@@ -115,34 +113,49 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     navItem: {
       fontWeight: 500,
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.common.black,
       textDecoration: "none",
       padding: theme.spacing(2),
-      fontSize: theme.typography.h5.fontSize,
+      fontSize: theme.typography.h6.fontSize,
       "&:hover": {
         textDecoration: "none",
+      },
+      "&.active": {
+        color: theme.palette.primary.main,
       },
     },
     cartDrawerContainer: {
       "& .MuiDrawer-paper": {
-        padding: "60px 70px 250px",
         [theme.breakpoints.up("md")]: {
           width: "480px",
+          padding: "60px 70px 250px",
         },
         [theme.breakpoints.down("sm")]: {
           width: "320px",
-          background: "red",
+          padding: "30px 35px 200px",
         },
+      },
+    },
+    MenuDrawerContainer: {
+      "& .MuiDrawer-paper": {
+        [theme.breakpoints.up("md")]: {
+          width: "280px",
+          padding: "20px 15px 250px",
+        },
+        [theme.breakpoints.down("sm")]: {
+          width: "250px",
+          padding: "20px 15px 250px",
+        },
+      },
+    },
+    logo: {
+      fontWeight: "bold",
+      "& a:hover": {
+        textDecoration: "none",
       },
     },
   })
 );
-
-const dataMenu = [
-  { id: "1", name: "Sneaker", value: "sneaker" },
-  { id: "2", name: "Clothing", value: "clothing" },
-  { id: "3", name: "Accessories", value: "accessories" },
-];
 
 const NavBar: FC<any> = ({ navbarListProp }: any) => {
   const classes = useStyles();
@@ -154,9 +167,12 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [navbarList, setNavbarList] = useState<any>([]);
   const [anchorSearch, setAnchorSearch] = useState<boolean>(false);
-  const [anchorCart, setAnchorCart] = useState<boolean>(false);
+  const [anchorMenuNav, setAnchorMenuNav] = useState<boolean>(false);
   const { drawerCart, setDrawerCart } = useDrawerCartStore();
   const isMenuOpen = Boolean(anchorEl);
+  const [isFetchingProduct, setIsFetchingProduct] = useState<boolean>(false);
+  const [productList, setProductList] = useState<Product[]>([]);
+  const refInput = useRef("");
   const totalPrice = cart
     ? cart.reduce((total, item) => {
         return (total = total + item.price * item.quantity);
@@ -199,6 +215,20 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
     setAnchorSearch(!anchorSearch);
   };
 
+  const handleToggleDrawerMenu = (
+    event: React.KeyboardEvent | React.MouseEvent
+  ) => {
+    if (
+      event.type === "keydown" &&
+      ((event as React.KeyboardEvent).key === "Tab" ||
+        (event as React.KeyboardEvent).key === "Shift")
+    ) {
+      return;
+    }
+
+    setAnchorMenuNav(!anchorMenuNav);
+  };
+
   const handleToggleDrawerCart = (
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
@@ -221,6 +251,25 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
     setAnchorEl(null);
   };
 
+  const handleFetchProduct = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.value) {
+      setProductList([]);
+      return;
+    }
+    setIsFetchingProduct(true);
+    try {
+      const data: any = await apiProduct.getProductList({
+        keyword: e.target.value,
+        limit: 5,
+      });
+      //TO-DO: check status for error handling, and add pagination if needed.
+      setProductList(data?.products || []);
+    } catch (err) {
+      console.log(err);
+    }
+    setIsFetchingProduct(false);
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -234,27 +283,28 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
     >
       {user ? (
         <Box>
-          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+          <MenuItem onClick={handleMenuClose}>
+            <Link href={`/account`}>Tài khoản</Link>
+          </MenuItem>
           <MenuItem
             onClick={() => {
               handleMenuClose();
               dispatch(logout());
             }}
           >
-            Logout
+            Đăng xuất
           </MenuItem>
         </Box>
       ) : (
         <Box>
           <MenuItem onClick={handleMenuClose}>
-            <Link href={`/login`}>Signin</Link>
+            <Link href={`/login`}>Đăng nhập</Link>
           </MenuItem>
-          <MenuItem onClick={handleMenuClose}>Signup</MenuItem>
+          <MenuItem onClick={handleMenuClose}>
+            <Link href={`/register`}>Đăng ký</Link>
+          </MenuItem>
         </Box>
       )}
-      {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
     </Menu>
   );
 
@@ -263,9 +313,9 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
       <div className={classes.grow}>
         <AppBar position="static">
           <Toolbar className={classes.appBar}>
-            <Typography variant="h5" noWrap>
-              <Link href="/" color="secondary">
-                <span> Jis Shop</span>
+            <Typography variant="h4" noWrap className={classes.logo}>
+              <Link href="/" color="primary">
+                <span>Anubis</span>
               </Link>
             </Typography>
             <div className={`${classes.grow} ${classes.menuList}`}>
@@ -275,7 +325,11 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
                   return (
                     <Link
                       key={`${d._id}`}
-                      href={`/${href}`}
+                      href={{
+                        pathname: `/category/${href}`,
+                        query: { category_name: href },
+                      }}
+                      as={`/category/${href}`}
                       color="secondary"
                       className={classes.navItem}
                     >
@@ -325,10 +379,9 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
               </IconButton>
               <Hidden mdUp>
                 <IconButton
-                  // edge="start"
-                  className={classes.menuButton}
                   color="inherit"
                   aria-label="open drawer"
+                  onClick={handleToggleDrawerMenu}
                 >
                   <MenuIcon fontSize="small" />
                 </IconButton>
@@ -340,11 +393,133 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
       </div>
       <Drawer
         anchor="right"
+        open={anchorMenuNav}
+        onClose={handleToggleDrawerMenu}
+        variant="temporary"
+        className={classes.MenuDrawerContainer}
+      >
+        <Box mt="20px" display="flex" flexDirection="column">
+          {navbarList.map((d: any) => {
+            let href = d._id.replace("/", "-").toLowerCase();
+            return (
+              <Link
+                key={`${d._id}`}
+                href={{
+                  pathname: `/category/${href}`,
+                  query: { category_name: href },
+                }}
+                as={`/category/${href}`}
+                color="primary"
+                className={classes.navItem}
+              >
+                <span>{capitalizeFirstLetter(d._id.toLowerCase())}</span>
+              </Link>
+            );
+          })}
+        </Box>
+      </Drawer>
+      <Drawer
+        anchor="right"
         open={anchorSearch}
         onClose={handleToggleDrawerSearch}
         variant="temporary"
+        className={classes.cartDrawerContainer}
       >
-        <Typography> This is the drawer search product</Typography>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            inputRef={refInput}
+            placeholder="Nhập sản phẩm muốn tìm..."
+            onChange={debounce(handleFetchProduct, 300)}
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ "aria-label": "search" }}
+          />
+        </div>
+        <Box mt="20px">
+          {isFetchingProduct ? (
+            <Box
+              mt="40px"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <CircleProgress />
+            </Box>
+          ) : productList.length > 0 ? (
+            productList.map((c: Product) => {
+              let imgPrimary = c.images.filter(
+                (img: ObjectImageProduct) => img.primary === true
+              );
+              let variantFirst = c.variants[0];
+
+              return (
+                <Fragment
+                  key={`product search in Drawer-${c._id}${c.slug_name}`}
+                >
+                  <Box
+                    display="flex"
+                    py="10px"
+                    style={{ position: "relative" }}
+                    data-aos="flip-left"
+                  >
+                    <Box style={{ maxWidth: "75px" }}>
+                      <Link
+                        href={`/products/[slug]`}
+                        as={`/products/${c.slug_name}`}
+                      >
+                        <img alt={c.name} src={imgPrimary[0]?.url} />
+                      </Link>
+                    </Box>
+                    <Box flexGrow="1" ml="10px">
+                      <Typography style={{ fontSize: "14px" }}>
+                        {c.name}
+                      </Typography>
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="space-between"
+                      >
+                        <Typography
+                          component="span"
+                          style={{
+                            fontWeight: "bold",
+                            color: "#a9a1a1",
+                          }}
+                        >
+                          {formatCurrency(variantFirst.unit_price)}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Fragment>
+              );
+            })
+          ) : (
+            (refInput.current as any)?.value &&
+            "Không tìm thấy sản phẩm phù hợp!"
+          )}
+          {productList.length > 0 && (
+            <MyButton
+              color="blue"
+              fullWidth
+              style={{ marginTop: "20px" }}
+              component={Link}
+              href={{
+                pathname: "/products",
+                query: {
+                  keyword: (refInput.current as any)?.value,
+                },
+              }}
+            >
+              Xem thêm...
+            </MyButton>
+          )}
+        </Box>
       </Drawer>
       <Drawer
         anchor="right"
@@ -352,7 +527,7 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
         onClose={handleToggleDrawerCart}
         className={classes.cartDrawerContainer}
       >
-        <Typography component="h5">Cart</Typography>
+        <Typography component="h5">Giỏ hàng</Typography>
         <Box mt="40px">
           {cart.length > 0
             ? cart.map((c: CartItem) => {
@@ -431,7 +606,7 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Typography component="p">Total: </Typography>
+            <Typography component="p">Tổng cộng: </Typography>
             <Typography
               component="span"
               style={{

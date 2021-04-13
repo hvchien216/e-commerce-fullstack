@@ -18,7 +18,7 @@ module.exports = {
     const foundUser = await User.findOne({ email });
 
     if (foundUser) {
-      return res.status(400).json(`"exist" User already registered.`);
+      return res.status(400).json({ error_code: 'user_had_existed' });
     }
 
     const newUser = new User({
@@ -34,9 +34,9 @@ module.exports = {
     const sendEmail = () => {
       transporter.sendMail(registerUserTemplate(user), (err, info) => {
         if (err) {
-          res.status(500).send({ err: 'Error sending email' });
+          res.status(500).send({ error_code: 'sendmail_fail' });
         } else {
-          console.log(`** Email sent **`, info);
+          // console.log(`** Email sent **`, info);
         }
       });
     };
@@ -52,11 +52,11 @@ module.exports = {
     const { email, password } = req.body;
     let user = await User.findOne({ email });
     if (!user)
-      return res.status(400).json(`"invalid" email or password.`);
+      return res.status(403).json({ error_code: 'user_is_not_exist' });
 
     const isValidPassword = await user.isValidPassword(password);
     if (!isValidPassword)
-      return res.status(400).json(`"invalid" password.`);
+      return res.status(403).json({ error_code: 'user_account_wrong_password' });
 
     const token = `${user.generateAuthToken()}`;
     res
@@ -67,19 +67,20 @@ module.exports = {
   getProfile: asyncMiddleware(async (req, res) => {
     const { _id } = req.user;
 
-    let userProfile = await User.findById(_id).select('email info.phone info.name info.avatar info.address');
+    let userProfile = await User.findById(_id).select('email info.phone info.name info.avatar info.addresses');
     if (!userProfile)
-      return res.status(400).json(`User not found.`);
+      return res.status(400).json({ error_code: 'user_account_not_existed' });
 
     res.status(200).json({ profile: userProfile });
   }),
   updateProfile: asyncMiddleware(async (req, res) => {
     const { _id } = req.user;
-    let updateUserProfile = await User.findByIdAndUpdate(_id, { profile: req.body });
+    console.log(req.body)
+    let updateUserProfile = await User.findByIdAndUpdate(_id, { info: req.body }).lean(true).exec();
     if (!updateUserProfile)
-      return res.status(400).json(` Can not update profile.`);
+      return res.status(400).json({ error_code: 'cant_update_profile' });
 
-    res.status(200).json({ message: "Successfully!" });
+    res.status(200).json({ success: true, updateUserProfile });
   }),
   changePwd: asyncMiddleware(async (req, res) => {
     const { _id } = req.user;
@@ -89,27 +90,30 @@ module.exports = {
     const isValidPassword = await user.isValidPassword(prevPassword);
 
     if (!isValidPassword)
-      return res.status(400).json({ message: `"invalid" current password.` });
+      return res.status(403).json({ error_code: `password_invalid` });
 
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(newPassword, salt);
-    const setNewPwd = await User.findByIdAndUpdate(_id, { password: passwordHash });
-
-    res.status(200).json({ message: "Successfully!" });
+    try {
+      await User.findByIdAndUpdate(_id, { password: passwordHash });
+      return res.status(200).json({ success: true });
+    } catch (error) {
+      return res.status(500).json({ error_code: "sth_went_wrong" });
+    }
   }),
   forgotPassword: asyncMiddleware(async (req, res) => {
     const email = req.body.email.toLowerCase();
     if (!email) {
-      return res.status(400).send({ err: 'Email is wrong' });
+      return res.status(400).send({ error_code: 'email_is_required' });
     }
     let user;
     try {
       user = await User.findOne({ email });
     } catch (err) {
-      res.status(404).send({ err: 'Email is not exist' });
+      res.status(404).send({ error_code: 'user_is_not_exist' });
     }
     if (!user) {
-      res.status(404).send({ err: 'Email is not exist' });
+      res.status(404).send({ error_code: 'user_is_not_exist' });
     }
     const token = usePasswordHashToMakeToken(user);
     const url = getPasswordResetURL(user, token);
@@ -117,10 +121,9 @@ module.exports = {
     const sendEmail = () => {
       transporter.sendMail(emailTemplate, (err, info) => {
         if (err) {
-          res.status(500).send({ err: 'Error sending email' });
+          res.status(500).send({ error_code: 'sendmail_fail' });
         } else {
-          console.log(`** Email sent **`, info);
-          res.send({ res: 'Sent reset Email' });
+          res.send({ success: true });
         }
       });
     };
@@ -137,7 +140,7 @@ module.exports = {
     // highlight-start
     const user = await User.findOne({ _id: userId });
     if (!user) {
-      res.status(404).send({ err: 'Invalid user' });
+      return res.status(400).json({ error_code: 'user_account_not_existed' });
     }
     const secret = user.password + '-' + user.createdAt;
     const payload = jwt.decode(token, secret);
@@ -145,7 +148,7 @@ module.exports = {
       if (err) {
         // console.log("err======>", err)
         return res.status(401).json({
-          error: 'Incorrect token or it is expried.'
+          error_code: 'token_expried'
         })
       }
       if (payload._id === userId) {
@@ -157,29 +160,28 @@ module.exports = {
             { password: hashedPassword },
           );
           // pushNotification(updateUser.pushTokens, content, ''),
-          res.status(202).send('Password is changed');
+          res.status(202).send({ success: true });
         } catch (err) {
           res.status(500).send({ err });
         }
       } else {
-        res.status(500).send({ err: 'Token is invalid' });
+        return res.status(401).json({ error_code: 'token_invalid' })
       }
-      // console.log("decodeData======>", Date.now(), decodeData)
-      // console.log("token expried===>", Date.now() >= decodeData.exp * 1000)
     });
   }),
   getMyOrderList: asyncMiddleware(async (req, res) => {
     const { _id } = req.user;
     const {
+      status = '',
       page,
       limit
     } = req.query;
-    const perPage = +limit || 12;
+    const perPage = +limit || 3;
     const numPage = page ? page >= 1 ? +page : 1 : 1;
 
-    const myOrderListLength = await Order.find({ user: _id }).estimatedDocumentCount();
+    const myOrderListLength = await Order.find({ user: _id, status: { $regex: status, $options: "i" } }).countDocuments();
     const totalPage = Math.ceil(myOrderListLength / perPage);
-    let myOrders = await Order.find({ user: _id })
+    let myOrders = await Order.find({ user: _id, status: { $regex: status, $options: "i" } })
       .populate('detais.product_id')
       .skip((perPage * numPage) - perPage)
       .limit(perPage)
@@ -201,6 +203,7 @@ module.exports = {
     } catch (error) {
       order = null;
       console.log(error)
+      return res.status(403).json({ error_code: 'order_not_found' });
     }
     return res.status(200).json({ order });
   }),

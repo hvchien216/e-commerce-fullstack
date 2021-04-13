@@ -1,7 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { resolve } from "node:path";
 import queryString from "query-string";
-
+import ServiceError from "@config/ServiceErrors";
+import { AppState, SagaStore, store, wrapper } from "./store";
+import { logout } from "./authUser/actions";
+import { alertNotification } from "@utils/index";
 // import store from './../redux/store';
 // import { logoutUser } from './../redux/actions/userActions';
 const axiosClient = axios.create({
@@ -30,6 +34,7 @@ axiosClient.interceptors.response.use(
     // if (response?.data?.error_code === 'token_not_valid') {
     //   store.dispatch(logoutUser());
     // }
+    // console.log("response====>", response);
     if (response?.data) {
       return response.data;
     }
@@ -37,8 +42,14 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Handle errors
-    throw error;
+    console.log("wrapper===>", store);
+    if (error.response?.data?.error_code === "token_invalid") {
+      (store as SagaStore).dispatch(logout());
+      alertNotification("Phiên đăng nhập hết hạn", "warning");
+    }
+    return new Promise((resolve, reject) => {
+      reject(ServiceError.getServerError(error.response?.data));
+    });
   }
 );
 

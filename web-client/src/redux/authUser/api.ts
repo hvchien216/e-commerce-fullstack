@@ -24,10 +24,11 @@ const forgotPassword = (data: IForgotPassword & AxiosRequestConfig) => {
 };
 
 const resetPassword = (
+  userId: string,
   token: string,
   data: IResetPassword & AxiosRequestConfig
 ) => {
-  const url = `/api/auth/reset-password/${token}`;
+  const url = `/api/auth/reset-password/${userId}/${token}`;
   return api.post(url, data);
 };
 
@@ -46,9 +47,13 @@ const updateProfile = (data: any) => {
   return api.put(url, data);
 };
 
-const getMyOrderList = () => {
+const getMyOrderList = (params: {
+  status?: string;
+  limit?: string;
+  page?: string;
+}) => {
   const url = `/api/auth/my-order`;
-  return api.get(url);
+  return api.get(url, { params });
 };
 
 const getMyOrderDetails = (orderId: string) => {
@@ -65,6 +70,12 @@ const paymentByCreditCard = (data: any) => {
   const url = `/api/payment/payment-by-credit-card`;
   return api.post(url, data);
 };
+
+const upload = (data: any) => {
+  const url = `/api/upload/single-image`;
+  return api.post(url, data);
+};
+
 export default {
   login,
   register,
@@ -77,4 +88,5 @@ export default {
   getMyOrderDetails,
   paymentByCOD,
   paymentByCreditCard,
+  upload,
 };

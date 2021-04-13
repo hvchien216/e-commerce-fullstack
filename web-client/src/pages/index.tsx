@@ -3,6 +3,7 @@ import {
   Grid,
   Link,
   makeStyles,
+  Paper,
   Switch,
   Typography,
 } from "@material-ui/core";
@@ -52,7 +53,7 @@ const Home = ({ bestSellerList, newProductList, navbarList }: any) => {
       let variantFirst = p.variants[0];
       return (
         <Fragment key={`${p?.name} ${p?._id}`}>
-          <Grid item md={3} sm={4} xs={2}>
+          <Grid item md={3} sm={4} xs={6}>
             <ProductItem
               id={p?._id}
               name={p?.name}
@@ -77,11 +78,13 @@ const Home = ({ bestSellerList, newProductList, navbarList }: any) => {
           align="center"
           className={classes.title}
         >
-          New Product
+          Sản phẩm mới
         </Typography>
-        <Grid container spacing={2}>
-          {renderFeatureProduct(newProductList)}
-        </Grid>
+        <Paper style={{ padding: "8px" }}>
+          <Grid container spacing={2}>
+            {renderFeatureProduct(newProductList)}
+          </Grid>
+        </Paper>
         <Typography
           variant="h3"
           color="primary"
@@ -90,9 +93,11 @@ const Home = ({ bestSellerList, newProductList, navbarList }: any) => {
         >
           Best Seller
         </Typography>
-        <Grid container spacing={2}>
-          {renderFeatureProduct(bestSellerList)}
-        </Grid>
+        <Paper style={{ padding: "8px" }}>
+          <Grid container spacing={2}>
+            {renderFeatureProduct(bestSellerList)}
+          </Grid>
+        </Paper>
       </Layout>
     </>
   );

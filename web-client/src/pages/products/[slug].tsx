@@ -155,8 +155,6 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
   const [productState, setProductState] = useState<Product | any>(
     product || {}
   );
-  console.log("product===>", product);
-  console.log("productState===>", product);
   const {
     _id: product_id,
     name,
@@ -164,11 +162,10 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
     slug_name,
     description,
     category_id: categoryName,
-    brand_id,
+    brand,
     images,
     variants,
   } = productState;
-  // brand_id: { _id, name: brandName },
 
   const settings = {
     customPaging: function (i: number) {
@@ -213,10 +210,31 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
   );
   const [quantity, setQuantity] = useState<number>(1);
 
-  let totalQuanOfProduct: number = mapSize?.reduce(
-    (acc: any, cur: any) => acc + cur.inStock,
-    0
-  );
+  useEffect(() => {
+    setProductState(props.product || {});
+    let mapSize = props.product?.variants
+      ?.map(
+        (
+          {
+            variant: { name: nameVariant },
+            unit_price,
+            discount_rate,
+            inStock,
+            saled,
+          }: Variant,
+          index: number
+        ) => ({
+          id: index,
+          name: nameVariant,
+          unit_price,
+          inStock,
+          discount_rate,
+          saled,
+        })
+      )
+      .sort();
+    setvariantSelected(mapSize?.length > 0 ? mapSize[0] : {});
+  }, [props.product]);
 
   let priceAfterDiscount = formarDiscountPrice(
     variantSelected.unit_price || 0,
@@ -246,7 +264,7 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
     setvariantSelected(v);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (isBuyNow: boolean) => {
     let image = images.filter(
       (img: ObjectImageProduct) => img.primary === true
     );
@@ -266,7 +284,11 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
       image: image[0]?.url,
     };
     dispatch(addToCart(data));
-    setDrawerCart(true);
+    if (isBuyNow) {
+      router.push("/checkout");
+    } else {
+      setDrawerCart(true);
+    }
   };
 
   const renderVariant = () => {
@@ -287,6 +309,7 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
       );
     });
   };
+
   if (router.isFallback) {
     return (
       <Box
@@ -342,19 +365,16 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
                   </Box>
                   <Box py={"10px"}>
                     <Typography component="h5">
-                      Brand:
+                      Thương hiệu:
                       <Link
                         href={{
                           pathname: `/products/`,
-                          query: { brand: `${brand_id?._id}` },
+                          query: { brands: `${brand?.name}` },
                         }}
                         passHref
                       >
-                        <a
-                          className={classes.brandName}
-                          title={brand_id?.brandName}
-                        >
-                          {brand_id?.brandName}
+                        <a className={classes.brandName} title={brand?.name}>
+                          {brand?.name}
                         </a>
                       </Link>
                     </Typography>
@@ -387,8 +407,7 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
                   <Box py={"10px"}>{renderVariant()}</Box>
                   <Box py={"10px"} fontWeight={600} fontSize={13}>
                     <Typography component="span" color="textSecondary">
-                      {variantSelected?.inStock} product
-                      {`${variantSelected?.inStock > 1 && "s"} available`}
+                      {variantSelected?.inStock || 0} sản phẩm có sẵn
                     </Typography>
                   </Box>
                 </Box>
@@ -430,11 +449,21 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
                 my={"10px"}
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <MyButton onClick={handleAddToCart} color="red" fullWidth>
-                  Add to cart
+                <MyButton
+                  onClick={() => handleAddToCart(false)}
+                  color="red"
+                  fullWidth
+                  disabled={variantSelected?.inStock < 1}
+                >
+                  Thêm vào giỏ
                 </MyButton>
-                <MyButton color="blue" fullWidth>
-                  Buy Now
+                <MyButton
+                  onClick={() => handleAddToCart(true)}
+                  color="blue"
+                  fullWidth
+                  disabled={variantSelected?.inStock < 1}
+                >
+                  Mua ngay
                 </MyButton>
               </Box>
             </Paper>
@@ -463,15 +492,12 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }: Params) => {
   const { slug } = params;
-  console.log("slugg===>", slug, params);
   try {
     const data: any = await apiProduct.getProductDetail(slug);
-    console.log("this is data getStaticProps=====>", data);
     return data?.product
       ? { props: { product: data?.product } }
       : { notFound: true };
   } catch (error) {
-    // The Twitter API most likely died
     console.error(error);
     return { notFound: true };
   }
