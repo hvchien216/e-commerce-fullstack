@@ -18,7 +18,7 @@ module.exports = {
     const {
       keyword,
       category,
-      brandIds,
+      brands,
       from,
       to,
       sizes,
@@ -35,9 +35,9 @@ module.exports = {
       findByObj['category_id'] = { $regex: category, $options: "i" };
     }
 
-    if (brandIds) {
-      let listBrand = brandIds.split(',');
-      findByObj['brand_id'] = { $in: listBrand };
+    if (brands) {
+      let listBrand = brands.toLocaleUpperCase().split(',');
+      findByObj['brand.name'] = { $in: listBrand };
     }
 
     if (sizes) {
@@ -46,7 +46,7 @@ module.exports = {
     }
 
     if (!isNaN(+from) && !isNaN(+to)) {
-      if (Number(from) < Number(to)) {
+      if (Number(from) <= Number(to)) {
         findByObj['variants.unit_price'] = { $gte: Number(from), $lte: Number(to) };
       }
     } else {
@@ -61,11 +61,12 @@ module.exports = {
     const perPage = +limit || 12;
     const numPage = page ? page >= 1 ? +page : 1 : 1;
 
-    const productListLength = await Product.estimatedDocumentCount();
+    const productListLength = await Product.find(findByObj).countDocuments();
+    console.log("productListLength===>", productListLength)
     const totalPage = Math.ceil(productListLength / perPage);
 
     let products = await Product.find(findByObj)
-      .populate('brand_id', 'name')
+      // .populate('brand_id', 'name')
       .skip((perPage * numPage) - perPage)
       .limit(perPage)
       .lean(true).exec();
@@ -83,7 +84,7 @@ module.exports = {
     let product = null;
     try {
       product = await Product.findOne({ slug_name: slug })
-        .populate('brand_id', 'name')
+      // .populate('brand_id', 'name')
     } catch (error) {
       product = null;
       console.log(error)
@@ -100,7 +101,7 @@ module.exports = {
 
     let products = await Product.find()
       .sort({ "variants.saled": -1 })
-      .populate('brand_id', 'name')
+      // .populate('brand_id', 'name')
       .limit(perPage)
       .lean(true).exec();
     return res.status(200).json({
@@ -116,7 +117,7 @@ module.exports = {
 
     let products = await Product.find()
       .sort({ createdAt: -1 })
-      .populate('brand_id', 'name')
+      // .populate('brand_id', 'name')
       .limit(perPage)
       .lean(true).exec();
     return res.status(200).json({

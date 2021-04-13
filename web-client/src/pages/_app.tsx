@@ -11,10 +11,16 @@ import persistStore from "redux-persist/es/persistStore";
 import "../styles/globals.css";
 import { PersistGate } from "redux-persist/integration/react";
 import { useStore } from "react-redux";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 function MyApp({ Component, pageProps }: AppProps) {
   const darkMode = useSelector((state: AppState) => state.products.darkMode);
   // const theme = darkMode ? darkTheme : lightTheme;
   useEffect(() => {
+    AOS.init({
+      duration: 1200,
+    });
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles?.parentElement!.removeChild(jssStyles);

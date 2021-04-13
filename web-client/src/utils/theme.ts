@@ -12,18 +12,22 @@ const lightTheme = createMuiTheme({
     fontWeightBold: 700,
   },
   palette: {
+    common: {
+      black: "#000",
+      white: "#fff",
+    },
     type: "light",
     primary: {
-      light: "#a95817",
-      main: "#2196F3",
-      dark: "#f4974d",
+      light: "#f7e570",
+      main: "#f5df4d",
+      dark: "#ab9c35",
       contrastText: "#ededed",
     },
     secondary: {
-      light: "#007bb2",
-      main: "#00b0ff",
-      dark: "#33bfff",
-      contrastText: "#272727",
+      light: "#8509a4",
+      main: "#be0eeb",
+      dark: "#cb3eef",
+      contrastText: "#ededed",
     },
   },
 });
@@ -38,20 +42,21 @@ const darkTheme = createMuiTheme({
   },
   palette: {
     type: "dark",
-    primary: {
-      light: "#a95817",
-      main: "#F27E21",
-      dark: "#f4974d",
-      contrastText: "#272727",
+    common: {
+      black: "#000",
+      white: "#fff",
     },
-    secondary: {
-      light: "#007bb2",
-      main: "#00b0ff",
-      dark: "#33bfff",
+    primary: {
+      light: "#f7e570",
+      main: "#f5df4d",
+      dark: "#ab9c35",
       contrastText: "#ededed",
     },
-    text: {
-      primary: "#fff",
+    secondary: {
+      light: "#8509a4",
+      main: "#be0eeb",
+      dark: "#cb3eef",
+      contrastText: "#ededed",
     },
   },
 });

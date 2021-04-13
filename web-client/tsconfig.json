@@ -13,6 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "downlevelIteration": true,
     "baseUrl": ".",
     "paths": {
       "@components/*": ["./src/components/*"],
@@ -31,7 +32,8 @@
       "@utils/*": ["./src/utils/*"],
       "@app/*": ["./src/app/*"],
       "@assets/*": ["./src/assets/*"],
-      "@redux/*": ["./src/redux/*"]
+      "@redux/*": ["./src/redux/*"],
+      "@config/*": ["./src/config/*"]
     }
   },
   "include": [

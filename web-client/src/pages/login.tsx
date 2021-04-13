@@ -27,9 +27,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import authApi from "@redux/authUser/api";
 import { getProfile } from "@redux/authUser/actions";
-import { storedToken } from "@utils/index";
+import { alertNotification, storedToken } from "@utils/index";
 import { useRouter } from "next/router";
 import Link from "@components/Link";
+import { showError } from "@config/ServiceErrors";
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
@@ -53,20 +54,28 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 const schemaLogin = yup.object().shape({
-  email: yup.string().required("Email is a required field"),
-  password: yup.string().required("Password is a required field"),
+  email: yup.string().required("Vui lòng nhập Email"),
+  password: yup.string().required("Vui lòng nhập mật khẩu"),
 });
-const Login = ({ bestSellerList, newProductList, navbarList }: any) => {
+
+const schemaForgotPwd = yup.object().shape({
+  email: yup.string().required("Vui lòng nhập Email"),
+});
+
+const Login = (props: any) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
+  const user = useSelector((state: AppState) => state.authUser.user);
+  // useEffect(() => {
+  if (user) {
+    router.replace("/");
+  }
+  // }, []);
   const {
     handleSubmit,
-    register,
-    reset,
     control,
-    formState: { isSubmitting, errors, touchedFields, isValid },
-    ...rest
+    formState: { isSubmitting, errors, touchedFields },
   } = useForm<ILogin>({
     defaultValues: {
       email: "",
@@ -75,8 +84,22 @@ const Login = ({ bestSellerList, newProductList, navbarList }: any) => {
     resolver: yupResolver(schemaLogin),
   });
 
+  const {
+    handleSubmit: handleSubmitForgotPwd,
+    control: controlForgotPwd,
+    formState: formStateForgotPwd,
+  } = useForm<Omit<ILogin, "password">>({
+    defaultValues: {
+      email: "",
+    },
+    resolver: yupResolver(schemaForgotPwd),
+  });
+
   const handleGetProfileSuccess = () => {
     router.replace("/");
+    setTimeout(() => {
+      alertNotification("Đăng nhập thành công");
+    }, 1100);
   };
 
   const onSubmit: SubmitHandler<ILogin> = async (data) => {
@@ -87,7 +110,20 @@ const Login = ({ bestSellerList, newProductList, navbarList }: any) => {
         dispatch(getProfile(handleGetProfileSuccess, true));
       }
     } catch (error) {
-      console.log(error);
+      showError(error);
+    }
+  };
+
+  const onSubmitForgotPwd: SubmitHandler<Omit<ILogin, "password">> = async (
+    data
+  ) => {
+    try {
+      const result: any = await authApi.forgotPassword(data);
+      alertNotification(
+        "Vui lòng kiểm tra hòm thư, để xác nhận lấy lại mật khẩu!"
+      );
+    } catch (error) {
+      showError(error);
     }
   };
 
@@ -96,13 +132,8 @@ const Login = ({ bestSellerList, newProductList, navbarList }: any) => {
       <Layout>
         <Grid container spacing={2}>
           <Grid item sm={12} md={6}>
-            <Typography
-              variant="h3"
-              color="primary"
-              align="center"
-              className={classes.title}
-            >
-              Signin
+            <Typography variant="h3" color="primary" className={classes.title}>
+              Đăng nhập
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
               <InputField
@@ -110,6 +141,7 @@ const Login = ({ bestSellerList, newProductList, navbarList }: any) => {
                 name="email"
                 errors={errors}
                 touched={touchedFields}
+                label="Email"
               />
               <InputField
                 control={control}
@@ -117,6 +149,7 @@ const Login = ({ bestSellerList, newProductList, navbarList }: any) => {
                 type="password"
                 errors={errors}
                 touched={touchedFields}
+                label="Mật khẩu"
               />
               <Grid item xs={12} md={6} className={classes.submitBox}>
                 <Button
@@ -125,36 +158,46 @@ const Login = ({ bestSellerList, newProductList, navbarList }: any) => {
                   variant="contained"
                   color="primary"
                 >
-                  {isSubmitting ? <CircularProgress size={23} /> : "Signin"}
+                  {isSubmitting ? <CircularProgress size={23} /> : "Đăng nhập"}
                 </Button>
-                <Link href="/register">Signup</Link>
+                <Link href="/register" style={{ marginLeft: "8px" }}>
+                  Đăng ký
+                </Link>
               </Grid>
             </form>
           </Grid>
-          <Grid item sm={12} md={6}></Grid>
+          <Grid item sm={12} md={6}>
+            <Typography variant="h3" color="primary" className={classes.title}>
+              Quên mật khẩu
+            </Typography>
+            <form onSubmit={handleSubmitForgotPwd(onSubmitForgotPwd)}>
+              <InputField
+                control={controlForgotPwd}
+                name="email"
+                errors={formStateForgotPwd.errors}
+                touched={formStateForgotPwd.touchedFields}
+                label="Email của bạn"
+              />
+              <Grid item xs={12} md={6} className={classes.submitBox}>
+                <Button
+                  type="submit"
+                  disabled={formStateForgotPwd.isSubmitting}
+                  variant="contained"
+                  color="primary"
+                >
+                  {formStateForgotPwd.isSubmitting ? (
+                    <CircularProgress size={23} />
+                  ) : (
+                    "Lấy lại mật khẩu"
+                  )}
+                </Button>
+              </Grid>
+            </form>
+          </Grid>
         </Grid>
       </Layout>
     </>
   );
 };
-
-// export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
-//   // if (store.getState().products.newProductList.length) {
-//   // const data: any = await apiProduct.getBestSellerProductList();
-//   // await store.dispatch(fetchNewProductList());
-//   // store.dispatch(END);
-//   // }
-//   // await (store as SagaStore).sagaTask.toPromise();
-//   // const fetchParallel: any = await Promise.all([
-//   //   apiProduct.getNewProductList(),
-//   //   apiProduct.getBestSellerProductList(),
-//   // ]);
-//   // return {
-//   //   props: {
-//   //     bestSellerList: fetchParallel[0].products,
-//   //     newProductList: fetchParallel[1].products,
-//   //   },
-//   // };
-// });
 
 export default Login;

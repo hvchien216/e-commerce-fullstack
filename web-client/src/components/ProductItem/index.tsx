@@ -61,9 +61,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: "0 0 8px",
     position: "relative",
     fontSize: 14,
-    color: theme.palette.secondary.contrastText,
+    color: theme.palette.primary.main,
     "& a": {
-      color: theme.palette.secondary.contrastText,
+      color: theme.palette.primary.dark,
       fontWeight: "normal",
     },
   },
@@ -96,7 +96,7 @@ const ProductItem: FC<Props> = (props) => {
   let displayName = code ? `[${code}] ${name}` : `${name}`;
   let priceAfterDiscount = formarDiscountPrice(price, discount_rate);
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} data-aos="flip-right">
       <Box className={classes.productImg}>
         {discount_rate && (
           <Box className={classes.productSale}>

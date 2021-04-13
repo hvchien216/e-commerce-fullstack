@@ -61,7 +61,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FV8323',
     category_id: 'sneaker',
-    brand_id: { _id: '605963c5d06dd2152cbd4750' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/ae8d7b3e-915f-48f5-9d5f-978167b86328_c09bfd8f89b64ae9a854c4f9683a4c0c_master.jpg',
@@ -129,7 +132,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'CT1989-100',
     category_id: 'sneaker',
-    brand_id: { _id: '605963c5d06dd2152cbd4755' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/17133249-9736-4a95-889d-910ee1456995_fd5b4beeb941411baaf2937c718c3ad9_master.jpg',
@@ -197,7 +203,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '162063C',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd158' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd158',
+      name: 'CONVERSES'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/402c4f15-984d-4bb5-8a56-42b6b4fe5d2d_087fc24871df46cfb8fdf7b43eff5e7d_master.jpeg',
@@ -257,7 +266,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '162053C',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd158' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd158',
+      name: 'CONVERSES'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/8e0f52a2-b8f6-4792-8884-51aaaa3e542f_6d52b172d87c44c2877378a1bc867d6c_master.jpeg',
@@ -317,7 +329,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '165024C',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd158' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd158',
+      name: 'CONVERSES'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/12ff82a2-dc66-4b28-818f-b225509abea3_0d1c7c593bdd42629d12d679c79f222d_master.jpeg',
@@ -386,7 +401,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '162050C',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd158' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd158',
+      name: 'CONVERSES'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/27bbe291-91fa-4e05-9b40-190a3ccfd453_858c9772b4e24afabcaef9126be3a509_master.jpeg',
@@ -455,7 +473,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FS1HTA1071X-26',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd159' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd159',
+      name: 'FILA'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/0ab07427-0671-4428-9bbe-aadf5291f988_5b9666a0c0624435a19fbabcbabbd221_master.jpeg',
@@ -524,7 +545,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FZ1921',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/e2f875c9-cd47-4d55-a49b-d16e0077bdd1_d19bf3c0a9f54e3f804b738847f96dec_master.jpg',
@@ -601,7 +625,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FY0432',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/5cc31a80-b662-4975-af02-0340f34739aa_f413cf014a25475789aa4defe5bef074_master.jpg',
@@ -678,7 +705,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'H68156',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/4b11b638-5eba-4038-90ff-b66d59878fbc_3e0d8059b4c5496a9adeb28d144de0f6_master.jpg',
@@ -755,7 +785,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'H01903',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/cf1935cc-855d-41de-b7b4-22b533fe36c7_50d366d7f54c4e2e9003b886fda4f35f_master.jpg',
@@ -824,7 +857,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FV3642',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/7a35b176-7629-4b02-89db-3a819dca5295_8b05cbd81b63490d8b275ab2feca4c14_master.jpg',
@@ -901,7 +937,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FW0706',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/e36b5245-838d-4062-adeb-f0b4aa7d1e0f_8ab67fbf9fe04d289c17c80c8f2072e6_master.jpg',
@@ -974,7 +1013,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'EG0691',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/b10b6f1f-a4f3-4b0f-a143-1811bbab5ad3_41336a2a03f549968ab18dec0604855d_master.jpg',
@@ -1051,7 +1093,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FW2524',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/894b0648-fbc2-4fdd-9209-56ce496774d7_edf27b55e72f4fc8bbfa93750eeae5de_master.jpg',
@@ -1124,7 +1169,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FW2522',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/7ac34a91-f170-4d8c-a3a9-84adc57c8c3c_9358c91b5a8f4b1084b769b23b06a7e4_master.jpg',
@@ -1197,7 +1245,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FY9039',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/74b59978-60ee-4827-988c-5bc8f9352852_e32cffcce0ad4f368051e9b2c1fb4fcf_master.jpg',
@@ -1274,7 +1325,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FV8336',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/22fb9a47-06a2-4615-b774-c1b2598b930e_aba7aaf762e8461aa04de0fed0715c51_master.jpg',
@@ -1355,7 +1409,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FV8357',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/5a067aac-a157-4321-b4c5-b6f4cea42d7d_2c1c4e5675a94bb5934ffb5789747346_master.jpg',
@@ -1432,7 +1489,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'G27492',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/cxcxcx_c9e5f62464134558b6944f97f82a01cc_master.jpg',
@@ -1501,7 +1561,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'EG0768',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/xaxx_36c8031d5f59440489026061790587ff_master.jpg',
@@ -1570,7 +1633,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FW8696',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/xx_d272b8454a3742f4a13e429e947ae56b_master.jpg',
@@ -1639,7 +1705,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'EF1994',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/124031649_805588723570695_3538815290173574413_n_2bf68aa5df5349be9af7e8f3a2c3bb11_master.jpg',
@@ -1708,7 +1777,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'FV8333',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/123535791_2377362309074335_6056133020760722065_o_f02f3d402fb14f81a6fa14a94a8880d9_master.jpg',
@@ -1777,7 +1849,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'EG5201',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/123186168_2377708962373003_131830746470578403_o_9c9d40f492ac4b70a756ab1bd40bfafc_master.jpg',
@@ -1846,7 +1921,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'EE5106',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/ee5967b3-5ace-4c0e-9dfe-b10258a8a034_3a18ae782a19410eadf358830b907bdc_master.jpeg',
@@ -1915,7 +1993,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'G27519',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/0defd708-b2a5-4d19-90a7-b9f4f5fe822d_ff73da8037f449d8a24c6a29a92f4fab_master.jpeg',
@@ -1984,7 +2065,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'G27514',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15a' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15a',
+      name: 'ADIDAS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/5c57b808-2e32-42c8-a1d8-3eb55c3f7468_3c169c9076584509a73a68b849ba5b82_master.jpeg',
@@ -2065,7 +2149,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15c' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15c',
+      name: 'MLB'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/a1433e97-27ef-4194-9318-544b0864e33f_41c23fc772394044aa9550e34b898de1_master.jpeg',
@@ -2146,7 +2233,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15c' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15c',
+      name: 'MLB'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/b497dbff-adf1-4c3f-b6d4-829b7ff73979_1f8abf33f6774a46be6720f1cd5fe8aa_master.jpeg',
@@ -2227,7 +2317,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '32SHS1111-50L',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15c' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15c',
+      name: 'MLB'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/a1c56d35-e94b-4697-9d4c-33828028dcdb_d8c24cb175ca4932a39a9f4896554d1d_master.jpg',
@@ -2296,7 +2389,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '32SHS1011-50W',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15c' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15c',
+      name: 'MLB'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/lu_41e8fe2db0fe40e682a6c033fc925fe2_master.jpg',
@@ -2365,7 +2461,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '32SHC1011-50B',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15c' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15c',
+      name: 'MLB'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/7a150b8c-c2b3-4a94-9ea6-0d33f067773b_07fc4d9c0ed7444a92f7144066ab0fbe_master.jpg',
@@ -2442,7 +2541,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '32SHCD111-50I',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15c' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15c',
+      name: 'MLB'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/8301c6d0-5c2d-4689-8a83-394b01e0d197_cbe49635a2ce4b028e17b91c0aa030dd_master.jpg',
@@ -2523,7 +2625,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '32SHCG111-50I',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15c' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15c',
+      name: 'MLB'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/c447f352-dff2-4f72-be9b-65c646491427_d605cb7746db4ccbb821cf908b66c7f5_master.jpg',
@@ -2600,7 +2705,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '32SHC1011-07W',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15c' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15c',
+      name: 'MLB'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/c75492df-e5f5-4f25-aef9-54040512998f_db9722e09ec341478ee40fcc65a6ef0e_master.jpg',
@@ -2677,7 +2785,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '32SHSD111-50U',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15c' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15c',
+      name: 'MLB'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/b1405cfe-3373-4b9b-b415-25238e89ec30_e7925281b7c84d19ba43fbd78465bc28_master.jpg',
@@ -2754,7 +2865,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'CT1989-100',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/17133249-9736-4a95-889d-910ee1456995_fd5b4beeb941411baaf2937c718c3ad9_master.jpg',
@@ -2831,7 +2945,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'CV8482-100',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/5c2a205b-99e1-44cb-ad38-ddd62c253fe0_f9b854418a2940229bb134bf3229c86c_master.jpg',
@@ -2908,7 +3025,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/1df84df6-3c41-4a59-8c23-5e127e4580a9_706f37360de6422090ce3ebea5a6c2ee_master.jpg',
@@ -2977,7 +3097,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'CT2816-001',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/bd6446f4-cdca-4c53-ae86-e1a4b58d2e50_c77538975d1c416a9dee20f9ea8a7853_master.jpg',
@@ -3054,7 +3177,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'DC2199-100',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/767f2bfd-0508-4c79-9f90-579c6a2a58db_dd468224f1404abab0755323b83416aa_master.jpg',
@@ -3131,7 +3257,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '553558-410',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/8b73807a-143f-4914-9724-dfe9207a65fd_eb05ebe5c0c64f5b819d75fe21e85889_master.jpg',
@@ -3200,7 +3329,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'DB5455-100',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/dsdsds_c14eb9a19e14492daef2fc9158f39f89_master.jpg',
@@ -3269,7 +3401,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'CK0262-700',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/d77d688a-4fd4-4834-944c-9c54bf2f14cc_e16b16708c4b46128480e4892242d133_master.jpeg',
@@ -3338,7 +3473,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'BQ6931-802',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/7c9de903-a630-454a-aa50-fe510f9cf706_0a669a704ebc4cafba07f1147e920c35_master.jpg',
@@ -3415,7 +3553,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'CV5276-001',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15f' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15f',
+      name: 'NIKE'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/0d860df0-5019-4287-9cd2-4610e483f6f9_55c5e76cf1bf46d9810aface76d6fee6_master.jpeg',
@@ -3496,7 +3637,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15e' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15e',
+      name: 'VANS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/36c3e269-2fb3-40c2-b0b2-a3e89b142c1a_b3a5f952c99d401a966f03af52faf60d_master.jpeg',
@@ -3565,7 +3709,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: 'VNOA3DZ3OXV5',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15e' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15e',
+      name: 'VANS'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/36c3e269-2fb3-40c2-b0b2-a3e89b142c1a_b3a5f952c99d401a966f03af52faf60d_master.jpeg',
@@ -3634,7 +3781,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '373308-01',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15d' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15d',
+      name: 'PUMA'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/4dcb83ff-e12f-4cb6-9c93-d782604e8eb6_a7da2771496b4037af000488cd12015d_master.jpg',
@@ -3711,7 +3861,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '369819-02',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15d' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15d',
+      name: 'PUMA'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/5e453c92-73e7-4852-8ffc-df9bd6db3bab_f9a93868c81d42c1970f6742e18961e1_master.jpg',
@@ -3780,7 +3933,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '366419-02',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15d' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15d',
+      name: 'PUMA'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/2525_a87e048cfd944f8aa1b95b681dd35bec_master.jpg',
@@ -3849,7 +4005,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '370501-01',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15d' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15d',
+      name: 'PUMA'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/metalic_c69aa6c2553144b4a1f05546150bb427_master.jpg',
@@ -3918,7 +4077,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '372884-01',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15d' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15d',
+      name: 'PUMA'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/06cca66d-e95a-408b-bba9-eda93b4c3b25_71bb62a505014d82863a82276acb7f17_master.jpeg',
@@ -3999,7 +4161,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '369449-02',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15d' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15d',
+      name: 'PUMA'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/77e48a47-2a14-45bd-9656-10ae98cf6f78_ae2c93cd5fc7449ba19a1a6e479da376_master.jpeg',
@@ -4068,7 +4233,10 @@ const productsInStore = [
     -Giao hàng Nhanh 60p tại Sài Gòn`,
     code: '372780-01',
     category_id: 'sneaker',
-    brand_id: { _id: '6059b9e39ccd8a18e86bd15d' },
+    brand: {
+      _id: '6059b9e39ccd8a18e86bd15d',
+      name: 'PUMA'
+    },
     images: [
       {
         url: 'https://product.hstatic.net/1000383440/product/5a4aef0b-0f7a-463b-bc56-a19b7d7659a9_80a855cfa58f45b1a1ecb4f5d5b40fb7_master.jpeg',

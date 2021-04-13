@@ -8,14 +8,16 @@ export interface ParamsGetProductList {
   keyword?: string;
   sizes?: string;
   category?: string;
-  brandIds?: string;
+  brands?: string;
   from?: string;
   to?: string;
 }
 
-const getProductList = (params: ParamsGetProductList & AxiosRequestConfig) => {
+const getProductList = (
+  params: ParamsGetProductList & AxiosRequestConfig = {}
+) => {
   const url = `api/product`;
-  return api.get(url, params);
+  return api.get(url, { params });
 };
 
 const getNewProductList = () => {
@@ -38,10 +40,22 @@ const getProductDetail = (slug: string) => {
   return api.get(url);
 };
 
+const getBrandList = () => {
+  const url = `/api/brand/options/filter`;
+  return api.get(url);
+};
+
+const getVariantList = () => {
+  const url = `/api/variant/options/filter`;
+  return api.get(url);
+};
+
 export default {
   getProductList,
   getNewProductList,
   getBestSellerProductList,
   getCategoryList,
   getProductDetail,
+  getBrandList,
+  getVariantList,
 };

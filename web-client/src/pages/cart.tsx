@@ -121,20 +121,18 @@ const Cart: FC<any> = () => {
     <>
       <Layout>
         <Box my="20px">
-          <Typography variant="h3">Your Cart</Typography>
-          <Box my="20px">
+          <Typography variant="h3">Giỏ hàng</Typography>
+          <Box my="20px" data-aos="flip-up">
             {cart.length > 0 ? (
               <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
                   <TableHead>
                     <TableRow>
-                      <StyledTableCell>Image</StyledTableCell>
-                      <StyledTableCell align="right">
-                        Info Product
-                      </StyledTableCell>
-                      <StyledTableCell align="right">Price</StyledTableCell>
-                      <StyledTableCell align="right">Quantity</StyledTableCell>
-                      <StyledTableCell align="right">Amount</StyledTableCell>
+                      <StyledTableCell>Ảnh</StyledTableCell>
+                      <StyledTableCell align="right">Thông tin</StyledTableCell>
+                      <StyledTableCell align="right">Giá</StyledTableCell>
+                      <StyledTableCell align="right">Số lượng</StyledTableCell>
+                      <StyledTableCell align="right">Tổng cộng</StyledTableCell>
                       <StyledTableCell align="right"></StyledTableCell>
                     </TableRow>
                   </TableHead>
@@ -219,7 +217,7 @@ const Cart: FC<any> = () => {
               <Box textAlign="center">
                 <Typography variant="h2">
                   {" "}
-                  Your Cart Is Empty{" "}
+                  Không có gì trong giỏ hàng{" "}
                   <AddShoppingCartSharpIcon fontSize="large" />
                 </Typography>
               </Box>
@@ -233,7 +231,7 @@ const Cart: FC<any> = () => {
           justifyContent="flex-end"
         >
           <Typography variant="h4" color="primary">
-            Total: {formatCurrency(totalPrice || 0)}
+            Thành tiền: {formatCurrency(totalPrice || 0)}
           </Typography>
         </Box>
         <Box
@@ -242,8 +240,8 @@ const Cart: FC<any> = () => {
           alignItems="center"
           justifyContent="flex-end"
         >
-          <MyButton color="red">Continue Shopping</MyButton>
-          {cart.length > 0 && <MyButton color="blue">Checkout</MyButton>}
+          <MyButton color="red">Tiếp tục mua hàng</MyButton>
+          {cart.length > 0 && <MyButton color="blue">Thanh toán</MyButton>}
         </Box>
       </Layout>
     </>

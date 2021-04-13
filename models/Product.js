@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { categorySchema } = require("./Category");
 const { variantProductSchema } = require("./VariantProduct");
 const Joi = require('joi');
+const { brandSchema } = require("./Brand");
 
 const productSchema = new mongoose.Schema({
   name: { type: String, unique: false },
@@ -10,7 +11,7 @@ const productSchema = new mongoose.Schema({
   thumb: String,
   status: { type: Number, default: 0 },
   category_id: { type: String, ref: 'category' },
-  brand_id: { type: mongoose.Schema.ObjectId, ref: 'brand' },
+  brand: brandSchema,
   code: String,
   images: [{
     url: {
@@ -39,6 +40,7 @@ const productSchema = new mongoose.Schema({
     }
   ],
   rate: { type: Number, default: 0 },
+  numOfUserRate: { type: Number, default: 0 },
   comment: [
     {
       user_name: String,

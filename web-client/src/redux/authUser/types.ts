@@ -14,7 +14,7 @@ export interface IChangePassord {
 
 export interface IForgotPassword extends Omit<ILogin, "password"> {}
 
-export interface IResetPassword extends Pick<ILogin, "email"> {}
+export interface IResetPassword extends Omit<ILogin, "email"> {}
 
 export const LOGIN = "LOGIN";
 export const REGISTER = "REGISTER";

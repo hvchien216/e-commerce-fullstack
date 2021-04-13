@@ -27,7 +27,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import authApi from "@redux/authUser/api";
 import { getProfile } from "@redux/authUser/actions";
-import { storedToken } from "@utils/index";
+import { alertNotification, storedToken } from "@utils/index";
 import { useRouter } from "next/router";
 import Link from "@components/Link";
 
@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 500,
   },
   productItem: {
-    // color: theme.palette.secondary.contrastText,
     [theme.breakpoints.down("sm")]: {
       padding: theme.spacing(0, 2),
       height: "auto",
@@ -57,10 +56,14 @@ const schemaRegister = yup.object().shape({
   email: yup.string().required("Email is a required field"),
   password: yup.string().required("Password is a required field"),
 });
-const Register = ({ bestSellerList, newProductList, navbarList }: any) => {
+const Register = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
+  const user = useSelector((state: AppState) => state.authUser.user);
+  if (user) {
+    router.replace("/");
+  }
   const {
     handleSubmit,
     register,
@@ -78,6 +81,9 @@ const Register = ({ bestSellerList, newProductList, navbarList }: any) => {
 
   const handleGetProfileSuccess = () => {
     router.replace("/");
+    setTimeout(() => {
+      alertNotification("Đăng ký thành công");
+    }, 1100);
   };
 
   const onSubmit: SubmitHandler<IRegister> = async (data) => {
@@ -103,7 +109,7 @@ const Register = ({ bestSellerList, newProductList, navbarList }: any) => {
               align="center"
               className={classes.title}
             >
-              Register
+              Đăng ký
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
               <InputField
