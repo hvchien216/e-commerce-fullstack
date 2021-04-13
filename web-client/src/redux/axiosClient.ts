@@ -42,7 +42,6 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log("wrapper===>", store);
     if (error.response?.data?.error_code === "token_invalid") {
       (store as SagaStore).dispatch(logout());
       alertNotification("Phiên đăng nhập hết hạn", "warning");

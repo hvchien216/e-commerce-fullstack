@@ -100,19 +100,19 @@ const FormCheckOutCreditCard: FC<any> = (props: any) => {
           showError(error);
         }
       } else {
-        if (error.code === "incomplete_number") {
+        if (error?.code === "incomplete_number") {
           showError("Vui lòng nhập số tài khoản");
         }
-        if (error.code === "incomplete_expiry") {
+        if (error?.code === "incomplete_expiry") {
           showError("Vui lòng nhập ngày hết hạn");
         }
-        if (error.code === "incomplete_cvc") {
+        if (error?.code === "incomplete_cvc") {
           showError("Vui lòng nhập số CVC");
         }
-        if (error.code === "invalid_number") {
+        if (error?.code === "invalid_number") {
           showError("Số tài khoản không hợp lệ");
         }
-        if (error.code === "invalid_expiry_year_past") {
+        if (error?.code === "invalid_expiry_year_past") {
           showError("Thẻ của bạn đã hết hạn sử dụng");
         }
       }
