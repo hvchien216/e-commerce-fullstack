@@ -19,6 +19,7 @@
     "aos": "^2.3.4",
     "axios": "^0.21.1",
     "immer": "^9.0.1",
+    "js-cookie": "^2.2.1",
     "material-auto-rotating-carousel": "^3.0.2",
     "next": "10.0.9",
     "next-redux-wrapper": "^6.0.2",
