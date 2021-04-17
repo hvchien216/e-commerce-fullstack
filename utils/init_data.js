@@ -117,7 +117,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -188,7 +189,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 2,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -251,7 +253,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -314,7 +317,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -386,79 +390,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
-    comment: []
-  },
-  {
-    name: "CONVERSES 1970S HIGH BLACKWHITE",
-    slug_name: "converses-1970s-high-blackwhite",
-    description: `
-    -Hàng chính hãng
-    -Giao hàng Toàn Quốc
-    -Thanh Toán khi nhận hàng
-    -Bảo hành chính hãng trọn đời sản phẩm
-    -Bảo hành keo , chỉ trọn đời sản phẩm
-    -Giao hàng Nhanh 60p tại Sài Gòn`,
-    code: '162050C',
-    category_id: 'sneaker',
-    brand: {
-      _id: '6059b9e39ccd8a18e86bd158',
-      name: 'CONVERSES'
-    },
-    images: [
-      {
-        url: 'https://product.hstatic.net/1000383440/product/27bbe291-91fa-4e05-9b40-190a3ccfd453_858c9772b4e24afabcaef9126be3a509_master.jpeg',
-        primary: true
-      },
-    ],
-    variants: [
-      {
-        variant: {
-          name: '36.5'
-        },
-        unit_price: 1690000,
-        discount_rate: null,
-        inStock: 55,
-        saled: 233,
-      },
-      {
-        variant: {
-          name: '37'
-        },
-        unit_price: 1690000,
-        discount_rate: 22,
-        inStock: 60,
-        saled: 11,
-      },
-      {
-        variant: {
-          name: '38'
-        },
-        unit_price: 1690000,
-        discount_rate: 22,
-        inStock: 60,
-        saled: 11,
-      },
-      {
-        variant: {
-          name: '41'
-        },
-        unit_price: 1690000,
-        discount_rate: 30,
-        inStock: 80,
-        saled: 22,
-      },
-      {
-        variant: {
-          name: '44'
-        },
-        unit_price: 1690000,
-        discount_rate: null,
-        inStock: 70,
-        saled: 44,
-      },
-    ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -530,7 +463,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -610,87 +544,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
-    comment: []
-  },
-  {
-    name: "ULTRA BOOST 2021 ALL GREY",
-    slug_name: "ultra-boost-2021-all-grey",
-    description: `
-    -Hàng chính hãng
-    -Giao hàng Toàn Quốc
-    -Thanh Toán khi nhận hàng
-    -Bảo hành chính hãng trọn đời sản phẩm
-    -Bảo hành keo , chỉ trọn đời sản phẩm
-    -Giao hàng Nhanh 60p tại Sài Gòn`,
-    code: 'FY0432',
-    category_id: 'sneaker',
-    brand: {
-      _id: '6059b9e39ccd8a18e86bd15a',
-      name: 'ADIDAS'
-    },
-    images: [
-      {
-        url: 'https://product.hstatic.net/1000383440/product/5cc31a80-b662-4975-af02-0340f34739aa_f413cf014a25475789aa4defe5bef074_master.jpg',
-        primary: true
-      },
-      {
-        url: 'https://product.hstatic.net/1000383440/product/c7b27df7-a313-4c8a-b2b6-5b1b639a6deb_7e8d45498a464aceb026df088f686028_master.jpg',
-        primary: false
-      },
-      {
-        url: 'https://product.hstatic.net/1000383440/product/85ec7e95-b062-479f-ab5b-3c4afa6666fd_90c3f9fd4dc642fa95e595c0e2dc75ce_master.jpg',
-        primary: false
-      },
-    ],
-    variants: [
-      {
-        variant: {
-          name: '36.5'
-        },
-        unit_price: 2790000,
-        discount_rate: null,
-        inStock: 55,
-        saled: 233,
-      },
-      {
-        variant: {
-          name: '37'
-        },
-        unit_price: 2790000,
-        discount_rate: null,
-        inStock: 60,
-        saled: 11,
-      },
-      {
-        variant: {
-          name: '38'
-        },
-        unit_price: 2790000,
-        discount_rate: null,
-        inStock: 60,
-        saled: 11,
-      },
-      {
-        variant: {
-          name: '41'
-        },
-        unit_price: 2790000,
-        discount_rate: null,
-        inStock: 80,
-        saled: 22,
-      },
-      {
-        variant: {
-          name: '44'
-        },
-        unit_price: 2790000,
-        discount_rate: null,
-        inStock: 70,
-        saled: 44,
-      },
-    ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -770,7 +625,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -842,7 +698,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -922,7 +779,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -998,7 +856,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1078,7 +937,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1154,7 +1014,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1230,7 +1091,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1310,7 +1172,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1394,7 +1257,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1474,7 +1338,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1546,7 +1411,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1618,7 +1484,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1690,7 +1557,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1762,7 +1630,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1834,7 +1703,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1906,7 +1776,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -1978,7 +1849,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2050,7 +1922,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2134,7 +2007,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2218,7 +2092,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2302,7 +2177,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2374,7 +2250,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2446,7 +2323,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2526,7 +2404,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2610,7 +2489,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2690,7 +2570,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2770,7 +2651,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2850,7 +2732,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -2930,7 +2813,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3010,7 +2894,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3082,7 +2967,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3162,7 +3048,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3242,7 +3129,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3314,7 +3202,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3386,7 +3275,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3458,7 +3348,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3538,7 +3429,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3622,7 +3514,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3694,7 +3587,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3766,7 +3660,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3846,7 +3741,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -3918,79 +3814,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
-    comment: []
-  },
-  {
-    name: "PUMA RIBBON VIKKY",
-    slug_name: "puma-ribbon-vikky",
-    description: `
-    -Hàng chính hãng
-    -Giao hàng Toàn Quốc
-    -Thanh Toán khi nhận hàng
-    -Bảo hành chính hãng trọn đời sản phẩm
-    -Bảo hành keo , chỉ trọn đời sản phẩm
-    -Giao hàng Nhanh 60p tại Sài Gòn`,
-    code: '366419-02',
-    category_id: 'sneaker',
-    brand: {
-      _id: '6059b9e39ccd8a18e86bd15d',
-      name: 'PUMA'
-    },
-    images: [
-      {
-        url: 'https://product.hstatic.net/1000383440/product/2525_a87e048cfd944f8aa1b95b681dd35bec_master.jpg',
-        primary: true
-      },
-    ],
-    variants: [
-      {
-        variant: {
-          name: '36.5'
-        },
-        unit_price: 1290000,
-        discount_rate: null,
-        inStock: 55,
-        saled: 233,
-      },
-      {
-        variant: {
-          name: '37'
-        },
-        unit_price: 1290000,
-        discount_rate: null,
-        inStock: 60,
-        saled: 11,
-      },
-      {
-        variant: {
-          name: '38'
-        },
-        unit_price: 1290000,
-        discount_rate: null,
-        inStock: 60,
-        saled: 11,
-      },
-      {
-        variant: {
-          name: '41'
-        },
-        unit_price: 1290000,
-        discount_rate: null,
-        inStock: 80,
-        saled: 22,
-      },
-      {
-        variant: {
-          name: '44'
-        },
-        unit_price: 1290000,
-        discount_rate: null,
-        inStock: 70,
-        saled: 44,
-      },
-    ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -4062,7 +3887,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -4146,7 +3972,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
   {
@@ -4218,79 +4045,8 @@ const productsInStore = [
         saled: 44,
       },
     ],
-    rate: 1,
-    comment: []
-  },
-  {
-    name: "PUMA RS-X PATENT",
-    slug_name: "puma-rs-x-patent",
-    description: `
-    -Hàng chính hãng
-    -Giao hàng Toàn Quốc
-    -Thanh Toán khi nhận hàng
-    -Bảo hành chính hãng trọn đời sản phẩm
-    -Bảo hành keo , chỉ trọn đời sản phẩm
-    -Giao hàng Nhanh 60p tại Sài Gòn`,
-    code: '372780-01',
-    category_id: 'sneaker',
-    brand: {
-      _id: '6059b9e39ccd8a18e86bd15d',
-      name: 'PUMA'
-    },
-    images: [
-      {
-        url: 'https://product.hstatic.net/1000383440/product/5a4aef0b-0f7a-463b-bc56-a19b7d7659a9_80a855cfa58f45b1a1ecb4f5d5b40fb7_master.jpeg',
-        primary: true
-      },
-    ],
-    variants: [
-      {
-        variant: {
-          name: '36.5'
-        },
-        unit_price: 1990000,
-        discount_rate: 32,
-        inStock: 55,
-        saled: 233,
-      },
-      {
-        variant: {
-          name: '37'
-        },
-        unit_price: 1990000,
-        discount_rate: 32,
-        inStock: 60,
-        saled: 11,
-      },
-      {
-        variant: {
-          name: '38'
-        },
-        unit_price: 1990000,
-        discount_rate: null,
-        inStock: 60,
-        saled: 11,
-      },
-      {
-        variant: {
-          name: '41'
-        },
-        unit_price: 1990000,
-        discount_rate: 32,
-        inStock: 80,
-        saled: 22,
-      },
-      {
-        variant: {
-          name: '44'
-        },
-        unit_price: 1990000,
-        discount_rate: null,
-        inStock: 70,
-        saled: 44,
-      },
-    ],
-    rate: 1,
+    rate: 4.3,
+    numOfUserRate: 238,
     comment: []
   },
 ]

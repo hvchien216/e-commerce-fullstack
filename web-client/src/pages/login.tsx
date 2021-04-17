@@ -1,42 +1,43 @@
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  makeStyles,
-  Switch,
-  Typography,
-} from "@material-ui/core";
-import { AppState, wrapper } from "@redux/store";
-import Head from "next/head";
-import { useDispatch, useSelector } from "react-redux";
-import styles from "../styles/Home.module.css";
-import { Fragment, ReactNode, useEffect, useState } from "react";
-import Layout from "@components/Layout";
-import { useDarkModeStore } from "@context/darkMode";
-import { Theme } from "@material-ui/core/styles";
-import { fetchNewProductList } from "@redux/product/actions";
-import { END } from "@redux-saga/core";
-import { SagaStore } from "@redux/store";
-import ProductItem from "@components/ProductItem";
-import { ObjectImageProduct, Product } from "@redux/product/types";
-import apiProduct from "@redux/product/api";
-import { ILogin } from "@redux/authUser/types";
-import { SubmitHandler, useForm } from "react-hook-form";
 import InputField from "@components/InputField";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import authApi from "@redux/authUser/api";
-import { getProfile } from "@redux/authUser/actions";
-import { alertNotification, storedToken } from "@utils/index";
-import { useRouter } from "next/router";
+import Layout from "@components/Layout";
 import Link from "@components/Link";
 import { showError } from "@config/ServiceErrors";
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Divider,
+  Grid,
+  Hidden,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
+import { Theme } from "@material-ui/core/styles";
+import { getProfile } from "@redux/authUser/actions";
+import authApi from "@redux/authUser/api";
+import { ILogin } from "@redux/authUser/types";
+import { AppState } from "@redux/store";
+import { alertNotification, storedToken } from "@utils/index";
+import { useRouter } from "next/router";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import * as yup from "yup";
 
 const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    [theme.breakpoints.down("sm")]: {
+      paddingBottom: "150px",
+    },
+  },
   title: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     fontWeight: 500,
+    fontSize: theme.typography.h3.fontSize,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.h5.fontSize,
+    },
   },
   productItem: {
     // color: theme.palette.secondary.contrastText,
@@ -67,11 +68,9 @@ const Login = (props: any) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector((state: AppState) => state.authUser.user);
-  // useEffect(() => {
   if (user) {
     router.replace("/");
   }
-  // }, []);
   const {
     handleSubmit,
     control,
@@ -130,9 +129,9 @@ const Login = (props: any) => {
   return (
     <>
       <Layout>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} className={classes.root}>
           <Grid item sm={12} md={6}>
-            <Typography variant="h3" color="primary" className={classes.title}>
+            <Typography color="primary" className={classes.title}>
               Đăng nhập
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -166,8 +165,16 @@ const Login = (props: any) => {
               </Grid>
             </form>
           </Grid>
-          <Grid item sm={12} md={6}>
-            <Typography variant="h3" color="primary" className={classes.title}>
+          <Hidden mdUp>
+            <Grid item xs={12} sm={12}>
+              <Box mt="25px">
+                <Divider />
+                <Divider />
+              </Box>
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} md={6}>
+            <Typography color="primary" className={classes.title}>
               Quên mật khẩu
             </Typography>
             <form onSubmit={handleSubmitForgotPwd(onSubmitForgotPwd)}>

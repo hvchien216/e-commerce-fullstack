@@ -1,41 +1,34 @@
+import InputField from "@components/InputField";
+import Layout from "@components/Layout";
+import { showError } from "@config/ServiceErrors";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Button,
   CircularProgress,
   Grid,
   makeStyles,
-  Switch,
   Typography,
 } from "@material-ui/core";
-import { AppState, wrapper } from "@redux/store";
-import Head from "next/head";
-import { useDispatch, useSelector } from "react-redux";
-import styles from "../styles/Home.module.css";
-import { Fragment, ReactNode, useEffect, useState } from "react";
-import Layout from "@components/Layout";
-import { useDarkModeStore } from "@context/darkMode";
 import { Theme } from "@material-ui/core/styles";
-import { fetchNewProductList } from "@redux/product/actions";
-import { END } from "@redux-saga/core";
-import { SagaStore } from "@redux/store";
-import ProductItem from "@components/ProductItem";
-import { ObjectImageProduct, Product } from "@redux/product/types";
-import apiProduct from "@redux/product/api";
-import { ILogin, IRegister } from "@redux/authUser/types";
-import { SubmitHandler, useForm } from "react-hook-form";
-import InputField from "@components/InputField";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import authApi from "@redux/authUser/api";
 import { getProfile } from "@redux/authUser/actions";
+import authApi from "@redux/authUser/api";
+import { IRegister } from "@redux/authUser/types";
+import { AppState } from "@redux/store";
 import { alertNotification, storedToken } from "@utils/index";
 import { useRouter } from "next/router";
-import Link from "@components/Link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import * as yup from "yup";
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     fontWeight: 500,
+    fontSize: theme.typography.h3.fontSize,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.h5.fontSize,
+    },
   },
   productItem: {
     [theme.breakpoints.down("sm")]: {
@@ -94,7 +87,7 @@ const Register = () => {
         dispatch(getProfile(handleGetProfileSuccess, true));
       }
     } catch (error) {
-      console.log(error);
+      showError(error);
     }
   };
 
@@ -104,7 +97,6 @@ const Register = () => {
         <Grid container spacing={2}>
           <Grid item sm={12} md={6}>
             <Typography
-              variant="h3"
               color="primary"
               align="center"
               className={classes.title}
@@ -117,12 +109,14 @@ const Register = () => {
                 name="name"
                 errors={errors}
                 touched={touchedFields}
+                label="Họ tên"
               />
               <InputField
                 control={control}
                 name="email"
                 errors={errors}
                 touched={touchedFields}
+                label="Email"
               />
               <InputField
                 control={control}
@@ -130,6 +124,7 @@ const Register = () => {
                 type="password"
                 errors={errors}
                 touched={touchedFields}
+                label="Mật khẩu"
               />
               <Grid item xs={12} md={6} className={classes.submitBox}>
                 <Button
@@ -138,7 +133,7 @@ const Register = () => {
                   variant="contained"
                   color="primary"
                 >
-                  {isSubmitting ? <CircularProgress size={23} /> : "Register"}
+                  {isSubmitting ? <CircularProgress size={23} /> : "Đăng ký"}
                 </Button>
               </Grid>
             </form>
@@ -149,24 +144,5 @@ const Register = () => {
     </>
   );
 };
-
-// export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
-//   // if (store.getState().products.newProductList.length) {
-//   // const data: any = await apiProduct.getBestSellerProductList();
-//   // await store.dispatch(fetchNewProductList());
-//   // store.dispatch(END);
-//   // }
-//   // await (store as SagaStore).sagaTask.toPromise();
-//   // const fetchParallel: any = await Promise.all([
-//   //   apiProduct.getNewProductList(),
-//   //   apiProduct.getBestSellerProductList(),
-//   // ]);
-//   // return {
-//   //   props: {
-//   //     bestSellerList: fetchParallel[0].products,
-//   //     newProductList: fetchParallel[1].products,
-//   //   },
-//   // };
-// });
 
 export default Register;

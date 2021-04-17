@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     fontWeight: 500,
+    fontSize: theme.typography.h3.fontSize,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.h5.fontSize,
+    },
   },
   productItem: {
     // color: theme.palette.secondary.contrastText,
@@ -72,12 +76,7 @@ const Home = ({ bestSellerList, newProductList, navbarList }: any) => {
   return (
     <>
       <Layout>
-        <Typography
-          variant="h3"
-          color="primary"
-          align="center"
-          className={classes.title}
-        >
+        <Typography color="primary" align="center" className={classes.title}>
           Sản phẩm mới
         </Typography>
         <Paper style={{ padding: "8px" }}>
@@ -85,12 +84,7 @@ const Home = ({ bestSellerList, newProductList, navbarList }: any) => {
             {renderFeatureProduct(newProductList)}
           </Grid>
         </Paper>
-        <Typography
-          variant="h3"
-          color="primary"
-          align="center"
-          className={classes.title}
-        >
+        <Typography color="primary" align="center" className={classes.title}>
           Best Seller
         </Typography>
         <Paper style={{ padding: "8px" }}>

@@ -18,7 +18,7 @@ module.exports = {
     const foundUser = await User.findOne({ email });
 
     if (foundUser) {
-      return res.status(400).json({ error_code: 'user_had_existed' });
+      return res.status(403).json({ error_code: 'user_had_existed' });
     }
 
     const newUser = new User({
@@ -69,7 +69,7 @@ module.exports = {
 
     let userProfile = await User.findById(_id).select('email info.phone info.name info.avatar info.addresses');
     if (!userProfile)
-      return res.status(400).json({ error_code: 'user_account_not_existed' });
+      return res.status(403).json({ error_code: 'user_account_not_existed' });
 
     res.status(200).json({ profile: userProfile });
   }),
@@ -78,7 +78,7 @@ module.exports = {
     console.log(req.body)
     let updateUserProfile = await User.findByIdAndUpdate(_id, { info: req.body }).lean(true).exec();
     if (!updateUserProfile)
-      return res.status(400).json({ error_code: 'cant_update_profile' });
+      return res.status(403).json({ error_code: 'cant_update_profile' });
 
     res.status(200).json({ success: true, updateUserProfile });
   }),
@@ -104,7 +104,7 @@ module.exports = {
   forgotPassword: asyncMiddleware(async (req, res) => {
     const email = req.body.email.toLowerCase();
     if (!email) {
-      return res.status(400).send({ error_code: 'email_is_required' });
+      return res.status(403).send({ error_code: 'email_is_required' });
     }
     let user;
     try {
@@ -140,7 +140,7 @@ module.exports = {
     // highlight-start
     const user = await User.findOne({ _id: userId });
     if (!user) {
-      return res.status(400).json({ error_code: 'user_account_not_existed' });
+      return res.status(403).json({ error_code: 'user_account_not_existed' });
     }
     const secret = user.password + '-' + user.createdAt;
     const payload = jwt.decode(token, secret);

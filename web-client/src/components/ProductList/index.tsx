@@ -83,6 +83,15 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: "100%",
     },
+    title: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      fontWeight: 500,
+      fontSize: theme.typography.h3.fontSize,
+      [theme.breakpoints.down("sm")]: {
+        fontSize: theme.typography.h5.fontSize,
+      },
+    },
     heading: {
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
@@ -117,7 +126,7 @@ const Collections: FC<Props> = (props) => {
       const data: any = await apiProduct.getProductList({
         ...router.query,
         category:
-          (router.query?.category_name as string).replace("-", "/") ||
+          (router.query?.category_name as string)?.replace("-", "/") ||
           undefined,
         page: 1,
       });
@@ -160,7 +169,7 @@ const Collections: FC<Props> = (props) => {
       const data: any = await apiProduct.getProductList({
         ...router.query,
         category:
-          (router.query?.category_name as string).replace("-", "/") ||
+          (router.query?.category_name as string)?.replace("-", "/") ||
           undefined,
         page: currPage + 1,
       });
@@ -230,7 +239,9 @@ const Collections: FC<Props> = (props) => {
   return (
     <Layout>
       <Box my="20px">
-        <Typography variant="h4">Tất cả sản phẩm</Typography>
+        <Typography color="primary" className={classes.title}>
+          Tất cả sản phẩm
+        </Typography>
       </Box>
 
       <Grid container spacing={2}>

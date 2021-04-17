@@ -23,6 +23,15 @@ export interface Category {
   _id: string;
 }
 
+export interface Comment {
+  _id: string;
+  user_id: any;
+  content: string;
+  createdOn: Date;
+}
+export interface CommentHaveReply extends Comment {
+  reply: Comment[];
+}
 export interface Product {
   _id: string;
   name: string;
@@ -33,6 +42,9 @@ export interface Product {
   brand_id: Brand;
   category_id: string;
   variants: Variant[];
+  rate: number;
+  numOfUserRate: number;
+  comment: CommentHaveReply[];
 }
 
 export enum ORDER_STATUSES {

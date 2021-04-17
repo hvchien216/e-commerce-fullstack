@@ -1,35 +1,38 @@
-# React/Node.js template (MERN stack) ecommerce (light bundle: 100ko).
+# Next.js/Node.js template (MERN stack) ecommerce
 
 ## Demo
 
-https://demo-react-eco2.herokuapp.com/
+https://e-commerce-fullstack.vercel.app/
 
-https://demo-react-eco2.herokuapp.com/admin (user: admin, psw: admin)
+## Tech used
 
-## Prerequisites
+- NextJS
+- NodeJS
+- Mongoose
+- Material-UI
+- Redux Saga
+- Typescript
 
-Node.js, MongoDB and npm or yarn package manager are required
+## 3rd - Party
 
-## Installation
-
-You will only need to install the modules and import your DB.
-You can run a demo collection from file 'democollections.json'
-
-Installing the modules & importing the products list DB:
-
-```
-$ yarn
-$ cd client && yarn start
-import democollections.json
-setup your config.js file (secret JWT & Mongo URI)
-```
+- Cloudinary
+- Stripe
 
 ## Features
 
-- cached DB for fast results
-- filters combinables bewteen each other
-- validators
+- Prodcut List
+- Product Detail
+- Search Product
+- Rating Product
+- Comment Product
+- Checkout
+  - COD
+  - CreditCard
+- Authenticate
+  - Login
+  - Logout
+  - Forgot Password
+  - Reset Password
+- Manage My Order
 
-## Other projects
-
-Wanna play with react and SVG/CSS animations? https://github.com/NielsDom/react-countries / [DEMO](https://countries-389d9.firebaseapp.com/)
+- Other features: Developing...

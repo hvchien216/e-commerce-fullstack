@@ -41,20 +41,10 @@ const productSchema = new mongoose.Schema({
   ],
   rate: { type: Number, default: 0 },
   numOfUserRate: { type: Number, default: 0 },
-  comment: [
+  comments: [
     {
-      user_name: String,
-      avata: String,
-      content: String,
-      reply: [
-        {
-          user_name: String,
-          avata: String,
-          content: String,
-          createdOn: { type: Date, 'default': Date.now }
-        }
-      ],
-      createdOn: { type: Date, 'default': Date.now }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'comment'
     }
   ],
   createdOn: { type: Date, 'default': Date.now }

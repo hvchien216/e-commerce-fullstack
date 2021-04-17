@@ -9,9 +9,9 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Box, createStyles, Theme } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
-import Link from "next/link";
 import { formatCurrency, formarDiscountPrice } from "@utils/index";
 import { HIGHT_LIGHT_COLOR } from "@utils/theme";
+import Link from "@components/Link";
 interface Props {
   color?: "red" | "blue";
   id: string;
@@ -25,21 +25,25 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    // background: (props: Props) =>
-    //   props.color === "red"
-    //     ? "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
-    //     : "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+    background: "rgba(0, 0, 0, .4)",
     border: 0,
     borderRadius: 3,
-    boxShadow: (props: Props) =>
-      props.color === "red"
-        ? "0 3px 5px 2px rgba(255, 105, 135, .3)"
-        : "0 3px 5px 2px rgba(33, 203, 243, .3)",
+    // boxShadow: "0 3px 5px 2px rgba(255, 193, 7, .3)",
+    "&:hover img": {
+      transform: " scale(1.2)",
+    },
   },
   productImg: {
     display: "block",
     position: "relative",
     overflow: "hidden",
+    borderRadius: "3px 3px 0 0",
+    "& a img": {
+      transition: "transform 0.3s linear",
+    },
+  },
+  boxInfo: {
+    position: "relative",
   },
   productSale: {
     position: "absolute",
@@ -48,8 +52,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: 12,
     fontHeight: "bold",
     zIndex: 9,
-    background: theme.palette.secondary.contrastText,
-    color: "#ffffffde",
+    background: theme.palette.common.black,
+    color: theme.palette.primary.main,
     borderRadius: "50%",
     width: 35,
     height: 35,
@@ -82,6 +86,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: 5,
     fontWeight: "normal",
   },
+  styleLink: {
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "none",
+    },
+  },
 }));
 
 // const ProductItem: FC<Props & Omit<MuiButtonProps, keyof Props>> = (props) => {
@@ -112,14 +122,14 @@ const ProductItem: FC<Props> = (props) => {
             query: { slug: slug },
           }}
           as={`/products/${slug}`}
-          passHref
         >
-          <a style={{ display: "block" }}>
-            <img alt={name} src={url} />
-          </a>
+          <img alt={name} src={url} />
         </Link>
       </Box>
-      <Box style={{ padding: "20px 5px", textAlign: "center" }}>
+      <Box
+        className={classes.boxInfo}
+        style={{ padding: "20px 5px", textAlign: "center" }}
+      >
         <Box>
           <Typography component="h3" noWrap className={classes.productName}>
             <Link
@@ -127,10 +137,10 @@ const ProductItem: FC<Props> = (props) => {
                 pathname: `/products/[slug]`,
                 query: { slug: slug },
               }}
-              as={`/products/${slug}`}
-              passHref
+              title={name}
+              className={classes.styleLink}
             >
-              <a title={name}>{displayName}</a>
+              {displayName}
             </Link>
           </Typography>
         </Box>

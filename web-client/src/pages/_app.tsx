@@ -13,13 +13,14 @@ import { PersistGate } from "redux-persist/integration/react";
 import { useStore } from "react-redux";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import RegisterStore from "@config/registerStore";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const darkMode = useSelector((state: AppState) => state.products.darkMode);
   // const theme = darkMode ? darkTheme : lightTheme;
   useEffect(() => {
     AOS.init({
-      duration: 1200,
+      duration: 2000,
     });
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   //   persistor.persist();
   // });
   const store: any = useStore();
+  RegisterStore.store = store;
   return (
     <DrawerCartProvider>
       {/* <PayPalScriptProvider

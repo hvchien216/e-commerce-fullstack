@@ -90,6 +90,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     fontWeight: 500,
+    fontSize: theme.typography.h3.fontSize,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.h5.fontSize,
+    },
+  },
+  title2: {
+    marginBottom: theme.spacing(1),
+    fontWeight: 500,
+    fontSize: theme.typography.h5.fontSize,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.body1.fontSize,
+    },
   },
   productItem: {
     [theme.breakpoints.down("sm")]: {
@@ -168,7 +180,7 @@ const OrderDetail: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <Typography variant="h3" noWrap color="primary" className={classes.title}>
+      <Typography noWrap color="primary" className={classes.title}>
         Chi tiết đơn hàng {router.query?.order_id}
       </Typography>
       {isLoading ? (
@@ -187,7 +199,9 @@ const OrderDetail: FC<Props> = (props) => {
       ) : (
         <Grid container spacing={3}>
           <Grid item sm={12} md={8}>
-            <Typography variant="h4">Thông tin sản phẩm</Typography>
+            <Typography className={classes.title2}>
+              Thông tin sản phẩm
+            </Typography>
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
@@ -243,7 +257,9 @@ const OrderDetail: FC<Props> = (props) => {
             </Table>
           </Grid>
           <Grid item sm={12} md={4}>
-            <Typography variant="h4">Thông tin người nhận</Typography>
+            <Typography className={classes.title2}>
+              Thông tin người nhận
+            </Typography>
             <Typography gutterBottom>Số điện thoại: {order?.phone}</Typography>
             <Typography gutterBottom>Địa chỉ: {order?.address}</Typography>
             <Typography gutterBottom>

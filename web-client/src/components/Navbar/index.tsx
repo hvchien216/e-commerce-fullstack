@@ -2,7 +2,7 @@ import MyButton from "@components/Button";
 import CircleProgress from "@components/CircleProgress";
 import Link from "@components/Link";
 import { useDrawerCartStore } from "@context/drawerCart";
-import { Box, Divider, Drawer, Hidden } from "@material-ui/core";
+import { Box, Button, Divider, Drawer, Hidden } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
@@ -40,6 +40,8 @@ import React, {
   useRef,
   useState,
 } from "react";
+import clsx from "clsx";
+
 import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     appBar: {
-      background: LINEAR_BLUE,
+      background: "linear-gradient(45deg, hsl(0deg 3% 46%) 15%, #000000 90%)",
     },
     menuList: {
       display: "flex",
@@ -113,10 +115,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     navItem: {
       fontWeight: 500,
-      color: theme.palette.common.black,
+      color: theme.palette.primary.contrastText,
       textDecoration: "none",
       padding: theme.spacing(2),
-      fontSize: theme.typography.h6.fontSize,
+      fontSize: theme.typography.body1.fontSize,
       "&:hover": {
         textDecoration: "none",
       },
@@ -128,11 +130,11 @@ const useStyles = makeStyles((theme: Theme) =>
       "& .MuiDrawer-paper": {
         [theme.breakpoints.up("md")]: {
           width: "480px",
-          padding: "60px 70px 250px",
+          padding: "60px 70px 500px",
         },
         [theme.breakpoints.down("sm")]: {
           width: "320px",
-          padding: "30px 35px 200px",
+          padding: "30px 35px 500px",
         },
       },
     },
@@ -140,11 +142,11 @@ const useStyles = makeStyles((theme: Theme) =>
       "& .MuiDrawer-paper": {
         [theme.breakpoints.up("md")]: {
           width: "280px",
-          padding: "20px 15px 250px",
+          padding: "20px 15px 500px",
         },
         [theme.breakpoints.down("sm")]: {
           width: "250px",
-          padding: "20px 15px 250px",
+          padding: "20px 15px 500px",
         },
       },
     },
@@ -153,6 +155,18 @@ const useStyles = makeStyles((theme: Theme) =>
       "& a:hover": {
         textDecoration: "none",
       },
+    },
+    menuItemAcc: {
+      textDecoration: "none",
+      "&:hover": {
+        textDecoration: "none",
+      },
+    },
+    button: {
+      height: 48,
+      padding: "0 30px",
+      margin: 8,
+      textAlign: "center",
     },
   })
 );
@@ -284,7 +298,9 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
       {user ? (
         <Box>
           <MenuItem onClick={handleMenuClose}>
-            <Link href={`/account`}>Tài khoản</Link>
+            <Link href={`/account`} className={classes.menuItemAcc}>
+              Tài khoản
+            </Link>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -298,10 +314,14 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
       ) : (
         <Box>
           <MenuItem onClick={handleMenuClose}>
-            <Link href={`/login`}>Đăng nhập</Link>
+            <Link href={`/login`} className={classes.menuItemAcc}>
+              Đăng nhập
+            </Link>
           </MenuItem>
           <MenuItem onClick={handleMenuClose}>
-            <Link href={`/register`}>Đăng ký</Link>
+            <Link href={`/register`} className={classes.menuItemAcc}>
+              Đăng ký
+            </Link>
           </MenuItem>
         </Box>
       )}
@@ -352,7 +372,11 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
                 aria-label="My cart"
                 color="inherit"
               >
-                <Badge badgeContent={totalQuantity()} color="secondary">
+                <Badge
+                  showZero={true}
+                  badgeContent={totalQuantity()}
+                  color="primary"
+                >
                   <ShoppingCartOutlinedIcon fontSize="small" />
                 </Badge>
               </IconButton>
@@ -411,8 +435,9 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
                 as={`/category/${href}`}
                 color="primary"
                 className={classes.navItem}
+                style={{ textAlign: "center" }}
               >
-                <span>{capitalizeFirstLetter(d._id.toLowerCase())}</span>
+                {d._id.toUpperCase()}
               </Link>
             );
           })}
@@ -527,78 +552,84 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
         onClose={handleToggleDrawerCart}
         className={classes.cartDrawerContainer}
       >
-        <Typography component="h5">Giỏ hàng</Typography>
+        <Typography variant="h5">Giỏ hàng</Typography>
         <Box mt="40px">
-          {cart.length > 0
-            ? cart.map((c: CartItem) => {
-                return (
-                  <Fragment key={`cartItem in Drawer-${c.name}${c.variant}`}>
-                    <Box
-                      display="flex"
-                      py="10px"
-                      style={{ position: "relative" }}
+          {cart.length > 0 ? (
+            cart.map((c: CartItem) => {
+              return (
+                <Fragment key={`cartItem in Drawer-${c.name}${c.variant}`}>
+                  <Box
+                    display="flex"
+                    py="10px"
+                    style={{ position: "relative" }}
+                  >
+                    <IconButton
+                      onClick={() =>
+                        handleRemoveItemFromCart({
+                          product_id: c.product_id,
+                          variant: c.variant,
+                        })
+                      }
+                      style={{
+                        position: "absolute",
+                        right: "-20px",
+                        top: "-5px",
+                      }}
+                      color="primary"
+                      aria-label="delete prduct from cart"
                     >
-                      <IconButton
-                        onClick={() =>
-                          handleRemoveItemFromCart({
-                            product_id: c.product_id,
-                            variant: c.variant,
-                          })
-                        }
-                        style={{
-                          position: "absolute",
-                          right: "-20px",
-                          top: "-5px",
-                        }}
-                        color="primary"
-                        aria-label="delete prduct from cart"
+                      <CloseRoundedIcon fontSize="small" />
+                    </IconButton>
+                    <Box style={{ maxWidth: "85px" }}>
+                      <Link
+                        href={`/products/[slug]`}
+                        as={`/products/${c.slug_name}`}
+                        passHref
                       >
-                        <CloseRoundedIcon fontSize="small" />
-                      </IconButton>
-                      <Box style={{ maxWidth: "85px" }}>
-                        <Link
-                          href={`/products/[slug]`}
-                          as={`/products/${c.slug_name}`}
-                          passHref
-                        >
-                          <img alt={c.name} src={c.image} />
-                        </Link>
-                      </Box>
-                      <Box flexGrow="1" ml="10px">
+                        <img alt={c.name} src={c.image} />
+                      </Link>
+                    </Box>
+                    <Box flexGrow="1" ml="10px">
+                      <Typography
+                        style={{ fontSize: "14px", paddingRight: "15px" }}
+                      >
+                        {c.name}
+                      </Typography>
+                      <Typography variant="body2" style={{ color: "#a9a1a1" }}>
+                        {c.variant}
+                      </Typography>
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="space-between"
+                      >
+                        <Typography component="p">{c.quantity}</Typography>
                         <Typography
-                          style={{ fontSize: "14px", paddingRight: "15px" }}
+                          component="span"
+                          style={{
+                            fontWeight: "bold",
+                            marginLeft: "8px",
+                            color: "#a9a1a1",
+                          }}
                         >
-                          {c.name}
+                          {formatCurrency(c.price)}
                         </Typography>
-                        <Typography
-                          variant="body2"
-                          style={{ color: "#a9a1a1" }}
-                        >
-                          {c.variant}
-                        </Typography>
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="space-between"
-                        >
-                          <Typography component="p">{c.quantity}</Typography>
-                          <Typography
-                            component="span"
-                            style={{
-                              fontWeight: "bold",
-                              marginLeft: "8px",
-                              color: "#a9a1a1",
-                            }}
-                          >
-                            {formatCurrency(c.price)}
-                          </Typography>
-                        </Box>
                       </Box>
                     </Box>
-                  </Fragment>
-                );
-              })
-            : "Your cart is empty!"}
+                  </Box>
+                </Fragment>
+              );
+            })
+          ) : (
+            <Box
+              my={"10px"}
+              display="flex"
+              alignItems="center"
+              alignContent="center"
+            >
+              Giỏ hàng không có gì rồi!
+            </Box>
+          )}
           <Divider light={false} />
           <Box
             my="20px"
@@ -618,18 +649,30 @@ const NavBar: FC<any> = ({ navbarListProp }: any) => {
               {formatCurrency(totalPrice || 0)}
             </Typography>
           </Box>
-          <Box my={"10px"} display="flex" alignItems="center">
-            <MyButton onClick={() => {}} color="red" fullWidth>
-              <Link href="/cart">
-                <span style={{ color: "#fff", textDecoration: "none" }}>
-                  Giỏ hàng
-                </span>
-              </Link>
-            </MyButton>
-            <MyButton color="blue" fullWidth>
-              <Link href="/checkout">Thanh toán</Link>
-            </MyButton>
-          </Box>
+          {cart.length > 0 && (
+            <Box my={"10px"} display="flex" alignItems="center">
+              <Button
+                fullWidth
+                variant="outlined"
+                href="/cart"
+                component={Link}
+                color="primary"
+                className={clsx(classes.menuItemAcc, classes.button)}
+              >
+                Giỏ hàng
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                href="/checkout"
+                component={Link}
+                color="primary"
+                className={clsx(classes.menuItemAcc, classes.button)}
+              >
+                Thanh toán
+              </Button>
+            </Box>
+          )}
         </Box>
       </Drawer>
     </>

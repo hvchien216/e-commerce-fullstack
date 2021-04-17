@@ -29,20 +29,25 @@ import { AppState } from "@redux/store";
 import { alertNotification } from "@utils/index";
 import find from "lodash/find";
 import { useRouter } from "next/router";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import SwipeableViews from "react-swipeable-views";
 import * as yup from "yup";
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    backgroundColor: theme.palette.background.paper,
-    width: 500,
+    [theme.breakpoints.down("sm")]: {
+      paddingBottom: "200px",
+    },
   },
   title: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     fontWeight: 500,
+    fontSize: theme.typography.h3.fontSize,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.h5.fontSize,
+    },
   },
   productItem: {
     [theme.breakpoints.down("sm")]: {
@@ -259,9 +264,14 @@ const Account = () => {
   return (
     <>
       <Layout>
-        <Grid container spacing={2} data-aos="zoom-in-down">
+        <Grid
+          container
+          spacing={2}
+          data-aos="zoom-in-down"
+          className={classes.root}
+        >
           <Grid item md={12}>
-            <Typography variant="h3" color="primary" className={classes.title}>
+            <Typography color="primary" className={classes.title}>
               Thông tin tài khoản
             </Typography>
             <AppBar position="static" color="default">

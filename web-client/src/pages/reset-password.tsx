@@ -1,44 +1,34 @@
+import InputField from "@components/InputField";
+import Layout from "@components/Layout";
+import { showError } from "@config/ServiceErrors";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Button,
   CircularProgress,
   Grid,
   makeStyles,
-  Switch,
   Typography,
 } from "@material-ui/core";
-import { AppState, wrapper } from "@redux/store";
-import Head from "next/head";
-import { useDispatch, useSelector } from "react-redux";
-import styles from "../styles/Home.module.css";
-import { Fragment, ReactNode, useEffect, useState } from "react";
-import Layout from "@components/Layout";
-import { useDarkModeStore } from "@context/darkMode";
 import { Theme } from "@material-ui/core/styles";
-import { fetchNewProductList } from "@redux/product/actions";
-import { END } from "@redux-saga/core";
-import { SagaStore } from "@redux/store";
-import ProductItem from "@components/ProductItem";
-import { ObjectImageProduct, Product } from "@redux/product/types";
-import apiProduct from "@redux/product/api";
-import { ILogin, IResetPassword } from "@redux/authUser/types";
-import { SubmitHandler, useForm } from "react-hook-form";
-import InputField from "@components/InputField";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import authApi from "@redux/authUser/api";
-import { getProfile } from "@redux/authUser/actions";
-import { alertNotification, storedToken } from "@utils/index";
+import { IResetPassword } from "@redux/authUser/types";
+import { alertNotification } from "@utils/index";
 import { useRouter } from "next/router";
-import Link from "@components/Link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import * as yup from "yup";
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     fontWeight: 500,
+    fontSize: theme.typography.h3.fontSize,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.h5.fontSize,
+    },
   },
   productItem: {
-    // color: theme.palette.secondary.contrastText,
     [theme.breakpoints.down("sm")]: {
       padding: theme.spacing(0, 2),
       height: "auto",
@@ -58,7 +48,6 @@ const schemaResetPwd = yup.object().shape({
 
 const ResetPassword = (props: any) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const router = useRouter();
   const {
     handleSubmit,
@@ -80,7 +69,7 @@ const ResetPassword = (props: any) => {
       );
       alertNotification("Đặt lại mật khẩu thành công");
     } catch (error) {
-      console.log(error);
+      showError(error);
     }
   };
 
@@ -88,8 +77,8 @@ const ResetPassword = (props: any) => {
     <>
       <Layout>
         <Grid container spacing={2}>
-          <Grid item sm={12} md={6}>
-            <Typography variant="h3" color="primary" className={classes.title}>
+          <Grid item xs={12} md={6}>
+            <Typography color="primary" className={classes.title}>
               Lấy lại mật khẩu
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -113,7 +102,7 @@ const ResetPassword = (props: any) => {
               </Grid>
             </form>
           </Grid>
-          <Grid item sm={12} md={6}></Grid>
+          <Grid item xs={12} md={6}></Grid>
         </Grid>
       </Layout>
     </>

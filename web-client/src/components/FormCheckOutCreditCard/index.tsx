@@ -2,7 +2,13 @@ import MyButton from "@components/Button";
 import InputField from "@components/InputField";
 import StripeInput from "@components/StripeInput";
 import { showError } from "@config/ServiceErrors";
-import { CircularProgress, Grid } from "@material-ui/core";
+import {
+  CircularProgress,
+  Grid,
+  makeStyles,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -42,8 +48,24 @@ const cardsLogo = [
   "visa",
   "visaelectron",
 ];
-
+const useStyles = makeStyles((theme: Theme) => ({
+  title: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    fontWeight: 500,
+    fontSize: theme.typography.h4.fontSize,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.body1.fontSize,
+    },
+  },
+  contentModal: {
+    [theme.breakpoints.down("sm")]: {
+      paddingBottom: "200px",
+    },
+  },
+}));
 const FormCheckOutCreditCard: FC<any> = (props: any) => {
+  const classes = useStyles();
   const { onClose, open, values, cart } = props;
   const [stripePromise, setStripePromise] = useState<any>(null);
   const stripe: any = useStripe();
@@ -134,10 +156,13 @@ const FormCheckOutCreditCard: FC<any> = (props: any) => {
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      className={classes.contentModal}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle id="alert-dialog-title">
-          Thanh toán qua thẻ tín dụng
+          <Typography color="primary" className={classes.title}>
+            Thanh toán qua thẻ tín dụng
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <Grid container item xs={12}>
@@ -155,7 +180,7 @@ const FormCheckOutCreditCard: FC<any> = (props: any) => {
             </Grid>
           </Grid>
           <Grid container spacing={1}>
-            <Grid item md={12}>
+            <Grid item xs={12} md={12}>
               <InputField
                 control={control}
                 name="ccnumber"
@@ -172,7 +197,7 @@ const FormCheckOutCreditCard: FC<any> = (props: any) => {
                 InputLabelProps={{ shrink: true }}
               />
             </Grid>
-            <Grid item sm={12} md={6}>
+            <Grid item xs={12} md={6}>
               <InputField
                 control={control}
                 name="ccexp"
@@ -189,7 +214,7 @@ const FormCheckOutCreditCard: FC<any> = (props: any) => {
                 InputLabelProps={{ shrink: true }}
               />
             </Grid>
-            <Grid item sm={12} md={6}>
+            <Grid item xs={12} md={6}>
               <InputField
                 control={control}
                 name="cvc"

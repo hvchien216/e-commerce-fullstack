@@ -40,7 +40,8 @@ function Link(props: any) {
   const router = useRouter();
   const pathname = typeof href === "string" ? href : href.pathname;
   const className: any = clsx(classNameProps, {
-    [activeClassName]: router.asPath === pathname && activeClassName,
+    [activeClassName]:
+      router.asPath.indexOf(pathname) !== -1 && activeClassName,
   });
   if (naked) {
     return (

@@ -36,7 +36,7 @@ const bindMiddleware = (middleware: any) => {
   }
   return applyMiddleware(...middleware);
 };
-
+let storeOutside: any;
 function configureStore({ isServer }: any) {
   const sagaMiddleware = createSagaMiddleware();
   if (isServer) {
@@ -60,11 +60,10 @@ function configureStore({ isServer }: any) {
     );
     (store as any).__persistor = persistStore(store);
     (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga); // tslint:disable-line
-
+    storeOutside = store;
     return store;
   }
 }
-
-export const store = configureStore(false);
+export const store = configureStore({ isServer: false });
 
 export const wrapper = createWrapper(configureStore as any);

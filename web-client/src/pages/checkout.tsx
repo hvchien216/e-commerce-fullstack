@@ -54,6 +54,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     fontWeight: 500,
+    fontSize: theme.typography.h5.fontSize,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.h6.fontSize,
+    },
   },
   productItem: {
     // color: theme.palette.secondary.contrastText,
@@ -90,8 +94,24 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const cart = useSelector((state: AppState) => state.cart.myCart);
+  const user = useSelector((state: AppState) => state.authUser.user);
+
   const [open, setOpen] = useState<boolean>(false);
   const [stripePromise, setStripePromise] = useState<any>(null);
+  let defaultValueCurrUser = {
+    email: user?.profile?.email || "",
+    phone: user?.profile?.info.phone || "",
+    name: user?.profile?.info.name || "",
+    address:
+      user?.profile?.info?.addresses?.length > 0
+        ? user?.profile?.info?.addresses[0].address
+        : "",
+  };
+  useEffect(() => {
+    if (!user) {
+      alertNotification("Hãy đăng nhập để thực hiện thanh toán", "warning");
+    }
+  }, [user]);
   useEffect(() => {
     const stripe = loadStripe(
       process.env.NEXT_PUBLIC_PUBLIC_TRIPE_KEY as string
@@ -126,9 +146,7 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
     ...rest
   } = useForm<IFormCheckout>({
     defaultValues: {
-      email: "",
-      phone: "",
-      address: "",
+      ...defaultValueCurrUser,
       paymentMethod: "",
       note: "",
     },
@@ -144,6 +162,11 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
   };
 
   const onSubmit: SubmitHandler<IFormCheckout> = async (data) => {
+    if (!user) {
+      alertNotification("Hãy đăng nhập để thực hiện thanh toán", "warning");
+      return;
+    }
+
     const body = {
       info_receiver: {
         name: data?.name,
@@ -174,228 +197,225 @@ const Checkout = ({ bestSellerList, newProductList, navbarList }: any) => {
   return (
     <>
       <Layout>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2}>
-            <Grid item sm={12} md={4}>
-              <Typography
-                variant="h4"
-                color="primary"
-                className={classes.title}
-              >
-                Thông tin mua hàng
-              </Typography>
-              <Paper style={{ padding: "8px" }}>
-                <InputField
-                  control={control}
-                  name="email"
-                  errors={errors}
-                  touched={touchedFields}
-                  label="Email"
-                />
-                <InputField
-                  control={control}
-                  name="name"
-                  errors={errors}
-                  touched={touchedFields}
-                  label="Tên người nhận"
-                />
-                <InputField
-                  control={control}
-                  name="phone"
-                  errors={errors}
-                  touched={touchedFields}
-                  label="SĐT người nhận"
-                />
-                <InputField
-                  control={control}
-                  name="address"
-                  errors={errors}
-                  touched={touchedFields}
-                  label="Địa chỉ người nhận"
-                />
-                <InputField
-                  control={control}
-                  name="note"
-                  errors={errors}
-                  touched={touchedFields}
-                  label="Ghi chú"
-                />
-              </Paper>
-            </Grid>
-            <Grid item sm={12} md={4}>
-              <Typography
-                variant="h4"
-                color="primary"
-                // align="center"
-                className={classes.title}
-              >
-                Thanh toán
-              </Typography>
-              <Paper style={{ padding: "8px" }}>
-                <RadioBoxGroupField
-                  control={control}
-                  name="paymentMethod"
-                  errors={errors}
-                  touched={touchedFields}
-                  // label="Phương thức thanh toán"
-                  options={PAYMENT_METHOD_OPTIONS}
-                />
-              </Paper>
-            </Grid>
-            <Grid item sm={12} md={4}>
-              <Typography
-                variant="h4"
-                color="primary"
-                className={classes.title}
-              >
-                {`Đơn hàng (${totalQuantityProduct} sản phẩm)`}
-              </Typography>
-              <Paper style={{ padding: "8px" }}>
-                <Box style={{ maxHeight: "450px", overflowY: "auto" }}>
-                  {cart.length > 0 &&
-                    cart.map((c: CartItem) => {
-                      return (
-                        <Box
-                          display="flex"
-                          py="10px"
-                          key={`${c.product_id} - ${c.variant}`}
-                        >
+        <Box pb="150px">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container spacing={2}>
+              <Grid item sm={12} md={4}>
+                <Typography color="primary" className={classes.title}>
+                  Thông tin mua hàng
+                </Typography>
+                <Paper style={{ padding: "8px" }}>
+                  <InputField
+                    control={control}
+                    name="email"
+                    errors={errors}
+                    touched={touchedFields}
+                    label="Email"
+                  />
+                  <InputField
+                    control={control}
+                    name="name"
+                    errors={errors}
+                    touched={touchedFields}
+                    label="Tên người nhận"
+                  />
+                  <InputField
+                    control={control}
+                    name="phone"
+                    errors={errors}
+                    touched={touchedFields}
+                    label="SĐT người nhận"
+                  />
+                  <InputField
+                    control={control}
+                    name="address"
+                    errors={errors}
+                    touched={touchedFields}
+                    label="Địa chỉ người nhận"
+                  />
+                  <InputField
+                    control={control}
+                    name="note"
+                    errors={errors}
+                    touched={touchedFields}
+                    label="Ghi chú"
+                  />
+                </Paper>
+              </Grid>
+              <Grid item sm={12} md={4}>
+                <Typography color="primary" className={classes.title}>
+                  Thanh toán
+                </Typography>
+                <Paper style={{ padding: "8px", width: "100%" }}>
+                  <RadioBoxGroupField
+                    fullWidth
+                    control={control}
+                    name="paymentMethod"
+                    errors={errors}
+                    touched={touchedFields}
+                    // label="Phương thức thanh toán"
+                    options={PAYMENT_METHOD_OPTIONS}
+                  />
+                </Paper>
+              </Grid>
+              <Grid item sm={12} md={4}>
+                <Typography color="primary" className={classes.title}>
+                  {`Đơn hàng (${totalQuantityProduct} sản phẩm)`}
+                </Typography>
+                <Paper style={{ padding: "8px", width: "100%" }}>
+                  <Box style={{ maxHeight: "450px", overflowY: "auto" }}>
+                    {cart.length > 0 &&
+                      cart.map((c: CartItem) => {
+                        return (
                           <Box
-                            style={{ maxWidth: "85px", position: "relative" }}
+                            display="flex"
+                            py="10px"
+                            key={`${c.product_id} - ${c.variant}`}
                           >
-                            <img
-                              alt={c.name}
-                              src={c.image}
-                              style={{ borderRadius: "4px" }}
-                            />
                             <Box
-                              style={{
-                                position: "absolute",
-                                top: "0",
-                                right: "0",
-                                borderRadius: "5px",
-                                background: "#000",
-                                color: "#fff",
-                                padding: "2px 8px",
-                                fontWeight: "bold",
-                                transform: "translate(25%, -50%)",
-                              }}
+                              style={{ maxWidth: "85px", position: "relative" }}
                             >
-                              {c.quantity}
-                            </Box>
-                          </Box>
-                          <Box flexGrow="1" ml="10px">
-                            <Typography
-                              style={{ fontSize: "14px", paddingRight: "15px" }}
-                            >
-                              {c.name}
-                            </Typography>
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              justifyContent="space-between"
-                            >
-                              <Typography
-                                variant="body2"
-                                style={{ color: "#a9a1a1" }}
-                              >
-                                {c.variant}
-                              </Typography>
-                              <Typography
-                                component="span"
+                              <img
+                                alt={c.name}
+                                src={c.image}
+                                style={{ borderRadius: "4px" }}
+                              />
+                              <Box
                                 style={{
+                                  position: "absolute",
+                                  top: "0",
+                                  right: "0",
+                                  borderRadius: "5px",
+                                  background: "#000",
+                                  color: "#fff",
+                                  padding: "2px 8px",
                                   fontWeight: "bold",
-                                  marginLeft: "8px",
-                                  color: "#a9a1a1",
+                                  transform: "translate(25%, -50%)",
                                 }}
                               >
-                                {formatCurrency(c.price)}
+                                {c.quantity}
+                              </Box>
+                            </Box>
+                            <Box flexGrow="1" ml="10px">
+                              <Typography
+                                style={{
+                                  fontSize: "14px",
+                                  paddingRight: "15px",
+                                }}
+                              >
+                                {c.name}
                               </Typography>
+                              <Box
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="space-between"
+                              >
+                                <Typography
+                                  variant="body2"
+                                  style={{ color: "#a9a1a1" }}
+                                >
+                                  {c.variant}
+                                </Typography>
+                                <Typography
+                                  component="span"
+                                  style={{
+                                    fontWeight: "bold",
+                                    marginLeft: "8px",
+                                    color: "#a9a1a1",
+                                  }}
+                                >
+                                  {formatCurrency(c.price)}
+                                </Typography>
+                              </Box>
                             </Box>
                           </Box>
-                        </Box>
-                      );
-                    })}
-                </Box>
-                <Divider />
-                <Typography
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    margin: "8px 0px",
-                  }}
-                >
-                  <span>Tạm tính: </span>
-                  <span>{formatCurrency(totalPrice || 0)}</span>
-                </Typography>
-                <Typography
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    margin: "8px 0px",
-                  }}
-                >
-                  <span>Phí vận chuyển: </span>
-                  <span>__</span>
-                </Typography>
-                <Divider />
-                <Typography
-                  variant="h5"
-                  color="primary"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    margin: "8px 0px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  <span>Tổng cộng: </span>
-                  <span>{formatCurrency(totalPrice || 0)}</span>
-                </Typography>
-              </Paper>
-              <Box my={"10px"} display="flex" alignItems="center">
-                <MyButton onClick={() => {}} color="red" fullWidth>
-                  <Link href="/cart">
-                    <a
-                      style={{
-                        color: "#fff",
-                        textDecoration: "none",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <NavigateBeforeRoundedIcon fontSize="small" />
-                      Giỏ hàng
-                    </a>
-                  </Link>
-                </MyButton>
+                        );
+                      })}
+                  </Box>
+                  <Divider />
+                  <Typography
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      margin: "8px 0px",
+                    }}
+                  >
+                    <span>Tạm tính: </span>
+                    <span>{formatCurrency(totalPrice || 0)}</span>
+                  </Typography>
+                  <Typography
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      margin: "8px 0px",
+                    }}
+                  >
+                    <span>Phí vận chuyển: </span>
+                    <span>__</span>
+                  </Typography>
+                  <Divider />
+                  <Typography
+                    variant="h5"
+                    color="primary"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      margin: "8px 0px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <span>Tổng cộng: </span>
+                    <span>{formatCurrency(totalPrice || 0)}</span>
+                  </Typography>
+                </Paper>
+                <Box my={"10px"} display="flex" alignItems="center">
+                  <MyButton onClick={() => {}} color="red" fullWidth>
+                    <Link href="/cart">
+                      <a
+                        style={{
+                          color: "#fff",
+                          textDecoration: "none",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <NavigateBeforeRoundedIcon fontSize="small" />
+                        Giỏ hàng
+                      </a>
+                    </Link>
+                  </MyButton>
 
-                <MyButton
-                  color="blue"
-                  fullWidth
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? <CircularProgress size={23} /> : "Thanh toán"}
-                </MyButton>
-                {/* <PayPalButton /> */}
-              </Box>
+                  <MyButton
+                    color="blue"
+                    fullWidth
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <CircularProgress size={23} />
+                    ) : (
+                      "Thanh toán"
+                    )}
+                  </MyButton>
+                  {/* <PayPalButton /> */}
+                </Box>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-        {stripePromise ? (
-          <Elements stripe={stripePromise}>
-            <FormCheckOutCreditCard
-              cart={cart}
-              values={getValues}
-              open={open}
-              onClose={handleClose}
-            />
-          </Elements>
-        ) : null}
+          </form>
+          {stripePromise ? (
+            <Elements stripe={stripePromise}>
+              <FormCheckOutCreditCard
+                cart={cart}
+                values={getValues}
+                open={open}
+                onClose={handleClose}
+              />
+            </Elements>
+          ) : null}
+        </Box>
       </Layout>
     </>
   );

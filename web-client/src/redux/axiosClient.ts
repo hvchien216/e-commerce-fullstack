@@ -3,9 +3,10 @@ import Cookies from "js-cookie";
 import { resolve } from "node:path";
 import queryString from "query-string";
 import ServiceError from "@config/ServiceErrors";
-import { AppState, SagaStore, store, wrapper } from "./store";
+import { AppState, SagaStore, store } from "./store";
 import { logout } from "./authUser/actions";
 import { alertNotification } from "@utils/index";
+import RegisterStore from "@config/registerStore";
 // import store from './../redux/store';
 // import { logoutUser } from './../redux/actions/userActions';
 const axiosClient = axios.create({
@@ -43,7 +44,7 @@ axiosClient.interceptors.response.use(
   },
   (error) => {
     if (error.response?.data?.error_code === "token_invalid") {
-      (store as SagaStore).dispatch(logout());
+      RegisterStore.dispatch(logout);
       alertNotification("Phiên đăng nhập hết hạn", "warning");
     }
     return new Promise((resolve, reject) => {
