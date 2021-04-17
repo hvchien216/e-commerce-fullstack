@@ -153,10 +153,8 @@ module.exports = {
         payment_method: token_payment,
         confirm: true,
       });
-      // console.log("stripe-routes.js 19 | payment", payment);
 
     } catch (error) {
-      // console.log("stripe-routes.js 17 | error", error);
       return res.status(500).send({
         error_code: 'cant_create_order'
       });

@@ -386,7 +386,6 @@ const ProductDetail: FC<PropsProductDetail> = (props: PropsProductDetail) => {
       if (result.success) {
         setRate(result.rate);
         setNumOfUserRate(result.numOfUserRate);
-        console.log("result===>", result);
       }
     } catch (error) {
       console.log(error);

@@ -42,7 +42,6 @@ const productReducer = (state = initialState, action: AnyAction) => {
         draft.loading = false;
         return;
       case FETCH_NEW_PRODUCT_LIST_SUCCESS:
-        // console.log("Reducer====>", action, action.data);
         draft.newProductList = action.data;
         return;
       case FETCH_PRODUCT_FAIL:

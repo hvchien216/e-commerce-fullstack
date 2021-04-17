@@ -14,7 +14,6 @@ import { getProfileFail, getProfileSuccess } from "./actions";
 //       apiProduct.getProductList,
 //       params
 //     );
-//     console.log("loadDataSaga===>", data);
 //     yield put(fetchProductsSuccess(data));
 //   } catch (err) {
 //     yield put(fetchProductsFail(err));

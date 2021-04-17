@@ -75,7 +75,6 @@ module.exports = {
   }),
   updateProfile: asyncMiddleware(async (req, res) => {
     const { _id } = req.user;
-    console.log(req.body)
     let updateUserProfile = await User.findByIdAndUpdate(_id, { info: req.body }).lean(true).exec();
     if (!updateUserProfile)
       return res.status(403).json({ error_code: 'cant_update_profile' });

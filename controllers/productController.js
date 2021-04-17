@@ -36,7 +36,20 @@ module.exports = {
 
     if (category) {
       findByObj['category_id'] = { $regex: category, $options: "i" };
+      if (category.toUpperCase() === "SALES") {
+        delete findByObj['category_id'];
+        findByObj['$or'] = [{
+          "variants.discount_rate": {
+            $ne: null
+          }
+        }, {
+          "variants.discount_rate": {
+            $gt: 0
+          }
+        }]
+      }
     }
+
 
     if (brands) {
       let listBrand = brands.toLocaleUpperCase().split(',');
@@ -67,8 +80,7 @@ module.exports = {
     const productListLength = await Product.find(findByObj).countDocuments();
     const totalPage = Math.ceil(productListLength / perPage);
 
-    let products = await Product.find(findByObj).select("-comment")
-      // .populate('brand_id', 'name')
+    let products = await Product.find(findByObj).select("-comments -__v")
       .skip((perPage * numPage) - perPage)
       .limit(perPage)
       .lean(true).exec();
@@ -85,7 +97,7 @@ module.exports = {
 
     let product = null;
     try {
-      product = await Product.findOne({ slug_name: slug }).select("-comment")
+      product = await Product.findOne({ slug_name: slug }).select("-comments -__v")
     } catch (error) {
       product = null;
       console.log(error)

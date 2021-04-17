@@ -32,10 +32,6 @@ axiosClient.interceptors.request.use(async (config) => {
 
 axiosClient.interceptors.response.use(
   (response) => {
-    // if (response?.data?.error_code === 'token_not_valid') {
-    //   store.dispatch(logoutUser());
-    // }
-    // console.log("response====>", response);
     if (response?.data) {
       return response.data;
     }

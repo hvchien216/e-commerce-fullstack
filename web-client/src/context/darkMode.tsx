@@ -17,7 +17,6 @@ interface Props {
 export const DarkModeProvider = ({ children }: Props) => {
   const [darkMode, setDarkMode] = useLocalStorage("darkMode");
   // const [darkMode, setDarkMode] = React.useState(false);
-  console.log("darkMode====>", darkMode);
   const theme = darkMode ? darkTheme : lightTheme;
 
   return (

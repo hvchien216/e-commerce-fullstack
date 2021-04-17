@@ -4,7 +4,6 @@ const cloudinary = require('../utils/cloudinaryConfig');
 module.exports = {
   uploadSingleImg: asyncMiddleware(async (req, res) => {
 
-    // console.log("files=======>", req.files)
     let imgRes;
     try {
       imgRes = await cloudinary.uploads(req.files[0].path);

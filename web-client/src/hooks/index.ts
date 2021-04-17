@@ -7,9 +7,7 @@ function useLocalStorage(key: string) {
       if (item) {
         setStoredValue(JSON.parse(item));
       }
-    } catch (e) {
-      console.log("getValue===>", e);
-    }
+    } catch (e) {}
   }, []);
   const setValue = (value: any) => {
     try {
@@ -17,9 +15,7 @@ function useLocalStorage(key: string) {
         value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (e) {
-      console.log("setValue===>", e);
-    }
+    } catch (e) {}
   };
   return [storedValue, setValue];
 }
